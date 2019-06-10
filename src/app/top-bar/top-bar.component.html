@@ -1,3 +1,14 @@
 <a [routerLink]="['/']">
   <h1>ngEcosystem</h1>
 </a>
+
+<mat-menu #appMenu="matMenu">
+    <a [routerLink]="['/']">
+      <button mat-menu-item>Home</button>
+    </a>
+    <a [routerLink]="['results']">
+      <button mat-menu-item>Results</button>
+    </a>
+</mat-menu>
+
+<button mat-icon-button [matMenuTriggerFor]="appMenu">Menu</button>
