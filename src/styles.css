@@ -1,5 +1,7 @@
 /* Global Styles */
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 * {
   font-family: 'Roboto', Arial, sans-serif;
   color: #616161;
