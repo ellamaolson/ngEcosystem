@@ -1,0 +1,13 @@
+<h2>Results</h2>
+
+<div *ngFor="let result of results">
+  <h3>
+    <a [title]="result.name + ' details'">
+      {{result.name}}
+    </a>
+  </h3>
+
+  <p *ngIf="result.description">
+      Description: {{result.description}}
+    </p>
+</div>
