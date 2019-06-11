@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,14 +23,15 @@ import { ResultDetailsComponent } from './result-details/result-details.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatMenuModule,
     RouterModule.forRoot([
-      { path: '', component: SearchBarComponent }, //should be SearchBarComponent
-      { path: 'results', component: ResultsListComponent },
+      { path: '', component: SearchBarComponent },
+      { path: 'results', component: ResultsListComponent }
     ])
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
