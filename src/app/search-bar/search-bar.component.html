@@ -1,5 +1,7 @@
-<p>
-  search-bar
-</p>
+<form [formGroup]="searchForm" (ngSubmit)="onSearch(searchForm.value)" class="form-inline">
+    <div id="searchbox">
+        <input type="search" formControlName="searchTerm" placeholder="Search">
+        <button type="submit" [routerLink]="['/results']">Go</button>
+    </div>
+</form>
 
-<button [routerLink]="['/results']">Results</button>

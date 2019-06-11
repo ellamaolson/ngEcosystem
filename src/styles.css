@@ -124,19 +124,25 @@ app-top-bar h1 {
   margin: 0;
 }
 
-/* Checkout Cart, Shipping Prices */
+app-search-bar {
+  width: var(--content-width);
+  min-height: fit-content;
+  position: relative;
+  margin: 100px auto 0;
 
-.cart-item, .shipping-item {
-  width: 100%;
-  min-width: 400px;
-  max-width: 450px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 16px 32px;
-  margin-bottom: 8px;
-  border-radius: 2px;
-  background-color: #EEEEEE;
+}
+
+app-search-bar input {
+  font-size: 18px;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+app-search-bar button {
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-left: 20px;
+  border-radius: 20px;
 }
 
 

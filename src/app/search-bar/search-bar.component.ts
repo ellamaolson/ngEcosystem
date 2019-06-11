@@ -7,10 +7,24 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
+  // add a search term??
+  searchForm;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder) {
+    this.searchForm = this.formBuilder.group({
+      searchTerm: ''
+    });
   }
 
+  onSearch(data) {
+    // Process search data here
+    console.warn('You are searching for ',  data);
+    // set the searchTerm service to this data??
+
+
+    // clear the search term??
+    this.searchForm.reset();
+  }
+
+  ngOnInit() {}
 }
