@@ -1,0 +1,6 @@
+<h2>Glossary</h2>
+
+<div *ngFor="let result of results | async">
+  <h3 [title]="result.type"> {{ result.type }} - {{ result.name }}</h3>
+  <span>{{ result.description }}</span>
+</div>

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Mat Button",
+    "type": "button",
+    "description": "Material design button"
+  },
+  {
+    "name": "Generic Button",
+    "type": "button",
+    "description": "Generic button"
+  },
+  {
+    "name": "Rainbow Button",
+    "type": "button",
+    "description": "Special rainbow button"
+  }
+]
