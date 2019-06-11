@@ -1,7 +1,7 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSearch(searchForm.value)" class="form-inline">
     <div id="searchbox">
         <input type="search" formControlName="searchTerm" placeholder="Search">
-        <button type="button" [routerLink]="['/results']">Go</button>
+        <button type="button" (click)="onSearch(searchForm.value)">Go</button>
     </div>
 </form>
 
