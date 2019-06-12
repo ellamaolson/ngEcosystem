@@ -13,6 +13,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { ResultsListComponent } from './results-list/results-list.component';
 import { ResultDetailsComponent } from './result-details/result-details.component';
 import { GlossaryComponent } from './glossary/glossary.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { GlossaryComponent } from './glossary/glossary.component';
     SearchBarComponent,
     ResultsListComponent,
     ResultDetailsComponent,
-    GlossaryComponent
+    GlossaryComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { GlossaryComponent } from './glossary/glossary.component';
     RouterModule.forRoot([
       { path: '', component: SearchBarComponent },
       { path: 'results', component: ResultsListComponent },
-      { path: 'glossary', component: GlossaryComponent}
+      { path: 'glossary', component: GlossaryComponent},
+      { path: 'about', component: AboutComponent}
     ])
   ],
   providers: [],
