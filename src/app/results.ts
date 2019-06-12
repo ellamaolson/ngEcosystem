@@ -1,14 +1,27 @@
 export const results = [
   {
     name: 'Mat Button',
-    description: 'Recommended material design button'
+    type: 'Button',
+    description: 'Material design button'
   },
   {
-    name: 'Regular Button',
+    name: 'Generic Button',
+    type: 'Button',
     description: 'Generic button'
   },
   {
-    name: 'Rainbow Button',
-    description: 'Special rainbow colored button'
+    name: 'Generic Icon',
+    type: 'Icon',
+    description: 'Generic icon'
   },
+  {
+    name: 'Rainbow Button',
+    type: 'buTTon',
+    description: 'Special rainbow button'
+  },
+  {
+    name: 'Search Icon',
+    type: 'icon',
+    description: 'Search looking icon'
+  }
 ];

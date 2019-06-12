@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { SearchService } from '../search.service';
 import { results } from '../results';
 import { Router } from '@angular/router';
+// import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
@@ -13,18 +14,16 @@ import { Router } from '@angular/router';
 export class SearchBarComponent implements OnInit {
   // add a search term??
   searchForm;
-  service;
-  router;
-  results = results;
+  results =results;
+  // results = this.searchService.getDatabaseValues().pipe(
+  //   map(data => data.sort((a,b) => a.name - b.name)));
 
   constructor(
     private formBuilder: FormBuilder,
     private searchService: SearchService,
-    private angularRouter: Router
+    private router: Router
     ) {
     this.searchForm = this.formBuilder.group({ searchTerm: '' });
-    this.service = this.searchService;
-    this.router = this.angularRouter;
   }
 
   /**
@@ -35,14 +34,14 @@ export class SearchBarComponent implements OnInit {
   onSearch(searchterm) {
     console.log('You are searching for ',  searchterm);
 
-    this.service.empty(); // first empty the first to reset the search results.
+    this.searchService.empty(); // first empty the first to reset the search results.
 
-    console.log('Search Results: ', this.service.getItems());
+    console.log('Search Results: ', this.searchService.getItems());
 
     for (const result of results) {
-      this.service.addItem(result);
+      this.searchService.addItem(result);
     }
-    console.log('Search Results: ', this.service.getItems());
+    console.log('Search Results: ', this.searchService.getItems());
 
     // ToDo: query a database or look through json file for searchterm
     // ToDo: add the results to searchService with searchService.addItem()

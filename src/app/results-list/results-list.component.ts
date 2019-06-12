@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { results } from '../results';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '../search.service';
 
@@ -11,16 +10,13 @@ import { SearchService } from '../search.service';
 export class ResultsListComponent implements OnInit {
 
   // ToDo: set results to the items[] from searchService, not this statis results list
-  results;
-  service;
+  results = this.searchService.getItems();
 
   constructor(
     private route: ActivatedRoute,
     private searchService: SearchService,
   ) {
-    this.service = this.searchService;
-    this.results = this.service.getItems();
-    console.log('Results: ', this.results);
+    console.log('Results in result-list: ', this.results);
   }
 
   ngOnInit() {
