@@ -15,12 +15,12 @@ export const results = [
     description: 'Generic icon'
   },
   {
-    name: 'Rainbow Button',
-    type: 'buTTon',
+    name: 'Rainbow-Unicorn Button',
+    type: 'BuTTon',
     description: 'Special rainbow button'
   },
   {
-    name: 'Search Icon',
+    name: 'search Icon',
     type: 'icon',
     description: 'Search looking icon'
   }

@@ -38,8 +38,9 @@ export class GlossaryComponent implements OnInit {
   camelize(s: string): string {
     s = s.toLowerCase();
 
-    return s.replace(/(?:^|[-_])(\w)/g, (stripped, letter) => {
-        return letter ? letter.toUpperCase () : '';
-    }).replace(/(^\w)/, letter => letter.toUpperCase());
-}
+    return s
+      .replace(/(?:^|[-_])(\w)/g, (letter) => {
+        return letter ? letter.toUpperCase() : '';
+      }).replace(/(^\w)/, letter => letter.toUpperCase());
+  }
 }
