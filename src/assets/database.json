@@ -1,17 +1,22 @@
 [
   {
     "name": "Mat Button",
-    "type": "button",
+    "type": "Button",
     "description": "Material design button"
   },
   {
     "name": "Generic Button",
-    "type": "button",
+    "type": "Button",
     "description": "Generic button"
   },
   {
     "name": "Rainbow Button",
-    "type": "button",
+    "type": "bButton",
     "description": "Special rainbow button"
+  },
+  {
+    "name": "Icon",
+    "type": "Icon",
+    "description": "Generic icon"
   }
 ]
