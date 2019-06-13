@@ -20,6 +20,13 @@ export class SearchService {
     return this.items;
   }
 
+  isEmpty(): boolean {
+    if (this.items.length > 0) {
+      return false;
+    }
+    return true;
+  }
+
   empty() {
     this.items = [];
     return this.items;
