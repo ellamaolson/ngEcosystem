@@ -1,0 +1,19 @@
+<form [formGroup]="submissionForm" (ngSubmit)="onSubmit()" class="form-inline">
+  <div id="submissionbox">
+    <input type="search" formControlName="name" placeholder="Name" />
+    <input type="search" formControlName="type" placeholder="Type" />
+  </div>
+  <div id="submissionbox">
+    <input
+      type="search"
+      formControlName="description"
+      placeholder="Description"
+    />
+    <input
+      type="search"
+      formControlName="searchTerms"
+      placeholder="Related search terms"
+    />
+  </div>
+  <button type="button" (click)="onSubmit()">Submit</button>
+</form>
