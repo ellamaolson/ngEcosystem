@@ -11,7 +11,7 @@
   },
   {
     "name": "Rainbow Button",
-    "type": "bButton",
+    "type": "Button",
     "description": "Special rainbow button"
   },
   {

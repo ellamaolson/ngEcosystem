@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class SearchService {
-  term; // the search term used to fill items
-  items = []; // stores a list of current search results
+  /**
+   * the search term used to fill items
+   */
+  term;
 
-  constructor(private http: HttpClient) {}
+  /**
+   * stores a list of current search results
+   */
+  items = [];
+
+  constructor() {}
 
   addItem(result) {
     this.items.push(result);
@@ -30,9 +34,5 @@ export class SearchService {
   empty() {
     this.items = [];
     return this.items;
-  }
-
-  getDatabaseValues() : Observable<any> {
-    return this.http.get('/assets/database.json');
   }
 }

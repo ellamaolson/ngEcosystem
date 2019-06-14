@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SearchService } from '../search.service';
 import { results } from '../results';
@@ -9,15 +9,13 @@ import { Router } from '@angular/router';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent {
   searchForm = new FormGroup({
     searchTerm: new FormControl('')
   });
   results = results;
 
-  constructor(
-    private searchService: SearchService,
-    private router: Router) {}
+  constructor(private searchService: SearchService, private router: Router) {}
 
   /**
    * Searches for matching results to searchterm and adds
@@ -33,6 +31,7 @@ export class SearchBarComponent implements OnInit {
       this.searchForm.reset();
     } else {
       this.searchForm.reset();
+      console.log('About to navigate to results...');
       this.router.navigate(['/results']);
     }
   }
@@ -49,7 +48,6 @@ export class SearchBarComponent implements OnInit {
         }
       }
     }
+    console.log('Service: ', this.searchService.getItems());
   }
-
-  ngOnInit() {}
 }
