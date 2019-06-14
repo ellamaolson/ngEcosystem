@@ -1,0 +1,9 @@
+<h2>Submissions</h2>
+
+<div *ngFor="let submission of submissions">
+  <h3>
+    <a [title]="submission.name + ' details'">
+      {{submission.name}}
+    </a>
+  </h3>
+</div>
