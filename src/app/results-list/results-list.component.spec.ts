@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResultsListComponent } from './results-list.component';
+import { RouterModule } from '@angular/router';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 describe('ResultsListComponent', () => {
   let component: ResultsListComponent;
@@ -8,9 +10,9 @@ describe('ResultsListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResultsListComponent ]
-    })
-    .compileComponents();
+      imports: [RouterModule.forRoot([]), OverlayModule],
+      declarations: [ResultsListComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TopBarComponent } from './top-bar.component';
+import { RouterModule } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 
 describe('TopBarComponent', () => {
   let component: TopBarComponent;
@@ -8,9 +9,9 @@ describe('TopBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TopBarComponent ]
-    })
-    .compileComponents();
+      imports: [RouterModule.forRoot([]), MatMenuModule],
+      declarations: [TopBarComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

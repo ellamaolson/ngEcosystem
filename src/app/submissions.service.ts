@@ -4,20 +4,18 @@ import { Submission } from './submission';
 @Injectable({
   providedIn: 'root'
 })
-
 export class SubmissionService {
   items: Submission[] = []; // stores a list of current new submissions
-  length = 0;
 
   constructor() {}
 
-  addItem(entry) {
+  addItem(entry: Submission) {
     this.items.push(entry);
   }
 
-  deleteItem(entry) {
+  deleteItem(entry: Submission) {
     let index = 0;
-    for (let item of this.items) {
+    for (const item of this.items) {
       if (item === entry) {
         break;
       }
@@ -31,10 +29,7 @@ export class SubmissionService {
   }
 
   isEmpty(): boolean {
-    if (this.items.length > 0) {
-      return false;
-    }
-    return true;
+    return this.items.length === 0;
   }
 
   empty() {

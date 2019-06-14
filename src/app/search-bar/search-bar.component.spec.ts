@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchBarComponent } from './search-bar.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -8,9 +10,9 @@ describe('SearchBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchBarComponent ]
-    })
-    .compileComponents();
+      imports: [ReactiveFormsModule, RouterModule.forRoot([])],
+      declarations: [SearchBarComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
