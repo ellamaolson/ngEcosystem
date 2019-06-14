@@ -1,6 +1,7 @@
 /* Global Styles */
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/cdk/overlay-prebuilt.css';
 
 * {
   font-family: 'Roboto', Arial, sans-serif;
@@ -129,7 +130,6 @@ app-search-bar {
   min-height: fit-content;
   position: relative;
   margin: 100px auto 0;
-
 }
 
 app-search-bar input {
@@ -143,6 +143,20 @@ app-search-bar button {
   padding: 10px 10px;
   margin-left: 20px;
   border-radius: 20px;
+}
+
+app-new-submission input {
+  font-size: 18px;
+  border-radius: 2px;
+  padding: 10px;
+  margin: 20px;
+}
+
+app-new-submission button {
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-left: 20px;
+  border-radius: 12px;
 }
 
 

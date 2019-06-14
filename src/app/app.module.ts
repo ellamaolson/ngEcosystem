@@ -14,6 +14,8 @@ import { ResultsListComponent } from './results-list/results-list.component';
 import { ResultDetailsComponent } from './result-details/result-details.component';
 import { GlossaryComponent } from './glossary/glossary.component';
 import { AboutComponent } from './about/about.component';
+import { ResultOverlayComponent } from './result-overlay/result-overlay.component';
+import { NewSubmissionComponent } from './new-submission/new-submission.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AboutComponent } from './about/about.component';
     ResultsListComponent,
     ResultDetailsComponent,
     GlossaryComponent,
-    AboutComponent
+    AboutComponent,
+    ResultOverlayComponent,
+    NewSubmissionComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,9 @@ import { AboutComponent } from './about/about.component';
       { path: '', component: SearchBarComponent },
       { path: 'results', component: ResultsListComponent },
       { path: 'glossary', component: GlossaryComponent},
-      { path: 'about', component: AboutComponent}
+      { path: 'about', component: AboutComponent},
+      { path: 'result-overlay', component: ResultOverlayComponent},
+      { path: 'new-submission', component: NewSubmissionComponent},
     ])
   ],
   providers: [],

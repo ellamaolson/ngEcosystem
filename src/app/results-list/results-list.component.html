@@ -1,6 +1,6 @@
 <h2>Results</h2>
 
-<div *ngFor="let result of results">
+<div (click)="openOverlay()" *ngFor="let result of results">
   <h3>
     <a [title]="result.name + ' details'">
       {{result.name}}
@@ -10,4 +10,8 @@
   <p *ngIf="result.description">
       Description: {{result.description}}
     </p>
+</div>
+<div>
+  <h4>Think we are missing some results? Add a new submission to our results database!</h4>
+  <button [routerLink]="['/new-submission']">New Submission</button>
 </div>
