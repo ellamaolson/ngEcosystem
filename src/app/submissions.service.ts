@@ -1,17 +1,29 @@
 import { Injectable } from '@angular/core';
+import { Submission } from './submission';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SubmissionService {
-  items = []; // stores a list of current search results
+  items: Submission[] = []; // stores a list of current new submissions
+  length = 0;
 
   constructor() {}
 
-  addItem(name, type, description, searchTerms) {
-    const submission = {name, type, description, searchTerms};
-    this.items.push(submission);
+  addItem(entry) {
+    this.items.push(entry);
+  }
+
+  deleteItem(entry) {
+    let index = 0;
+    for (let item of this.items) {
+      if (item === entry) {
+        break;
+      }
+      index++;
+    }
+    this.items.splice(index, 1);
   }
 
   getItems() {
@@ -32,9 +44,8 @@ export class SubmissionService {
 
   toString(): string {
     let s = '';
-    for (let item of this.items) {
-      console.log('Item: ', item);
-      s += item.toString();
+    for (const item of this.items) {
+      s += item.toString() + '\n';
     }
     return s;
   }

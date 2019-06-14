@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SubmissionService } from '../submissions.service';
+import { Submission } from '../submission';
 
 @Component({
   selector: 'app-new-submission',
@@ -12,25 +13,22 @@ export class NewSubmissionComponent {
     name: new FormControl(''),
     type: new FormControl(''),
     description: new FormControl(''),
-    searchTerms: new FormControl(''),
+    link: new FormControl(''),
+    personName: new FormControl(''),
+    email: new FormControl(''),
   });
 
-  constructor(private submissionService: SubmissionService) {
-    this.test();
-  }
+  constructor(private submissionService: SubmissionService) {}
 
   onSubmit() {
-    console.log('You entered:');
-    console.log('Name: ', this.submissionForm.value.name);
-    console.log('Type: ', this.submissionForm.value.type);
-    console.log('Description: ', this.submissionForm.value.description);
-    console.log('searchTerms: ', this.submissionForm.value.searchTerms);
-  }
-
-  test() {
-    this.submissionService.addItem('elana', 'person', 'she is a swe', ['girl', 'human', 'swe']);
-    this.submissionService.addItem('tanner', 'person', 'he is a swe', ['boy', 'human', 'swe', 'dork']);
-
-    console.log('Items are: ', this.submissionService.toString());
+    const entry = new Submission(
+      this.submissionForm.value.name,
+      this.submissionForm.value.type,
+      this.submissionForm.value.description,
+      this.submissionForm.value.link,
+      this.submissionForm.value.personName,
+      this.submissionForm.value.email
+      );
+    this.submissionService.addItem(entry);
   }
 }

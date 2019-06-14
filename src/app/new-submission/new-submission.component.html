@@ -4,16 +4,12 @@
     <input type="search" formControlName="type" placeholder="Type" />
   </div>
   <div id="submissionbox">
-    <input
-      type="search"
-      formControlName="description"
-      placeholder="Description"
-    />
-    <input
-      type="search"
-      formControlName="searchTerms"
-      placeholder="Related search terms"
-    />
+    <input type="search" formControlName="description" placeholder="Description" />
+    <input type="search" formControlName="link" placeholder="Link" />
+  </div>
+  <div id="submissionbox">
+      <input type="search" formControlName="personName" placeholder="Your name" />
+      <input type="search" formControlName="email" placeholder="Email" />
   </div>
   <button type="button" (click)="onSubmit()">Submit</button>
 </form>
