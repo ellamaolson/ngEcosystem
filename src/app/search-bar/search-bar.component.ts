@@ -20,34 +20,15 @@ export class SearchBarComponent {
   /**
    * Searches for matching results to searchterm and adds
    * them to the searchService. Then, resets the searchForm.
+   * Search through database for matching search terms
    * @param searchterm
    */
   onSearch() {
     this.searchService.empty();
-    this.findResults();
-
-    if (this.searchService.isEmpty()) {
-      window.alert('No search results found :/');
-      this.searchForm.reset();
-    } else {
-      this.searchForm.reset();
-      console.log('About to navigate to results...');
-      this.router.navigate(['/results']);
-    }
-  }
-
-  /**
-   * Search through data array for matching search terms
-   */
-  findResults() {
-    for (const result of this.results) {
-      for (const term of result.terms) {
-        if (term === this.searchForm.value.searchTerm) {
-          this.searchService.addItem(result);
-          break;
-        }
-      }
-    }
+    this.searchService.query(this.searchForm.value.searchTerm);
     console.log('Service: ', this.searchService.getItems());
+    this.searchForm.reset();
+    console.log('About to navigate to results...');
+    this.router.navigate(['/results']);
   }
 }

@@ -9,8 +9,5 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   title = 'ngEcosystem';
-  items: Observable<any[]>;
-  constructor(db: AngularFirestore) {
-    this.items = db.collection('items').valueChanges();
-  }
+  constructor() {}
 }

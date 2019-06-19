@@ -1,49 +1,36 @@
-import { Component, OnInit, OnChanges, ViewContainerRef } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { SearchService } from '../search.service';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ResultOverlayComponent } from '../result-overlay/result-overlay.component';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-results-list',
   templateUrl: './results-list.component.html',
   styleUrls: ['./results-list.component.css']
 })
-export class ResultsListComponent implements OnInit, OnChanges {
-  results = this.searchService.getItems();
+export class ResultsListComponent {
   overlayRef: OverlayRef;
   nextPosition = 0;
+
+  /**
+   * Get an observable array from the search service
+   * containing results from querying the search database
+   */
+  results: Observable<any[]> = this.searchService.getItems();
 
   constructor(
     private searchService: SearchService,
     public overlay: Overlay,
-    public viewContainerRef: ViewContainerRef
-  ) {
-    console.log('Results in result-list: ', this.results);
-  }
-
-  ngOnInit() {
-    this.ngOnChanges();
-  }
+    public viewContainerRef: ViewContainerRef,
+    db: AngularFirestore
+  ) {}
 
   /**
-   * Sort results based on name
+   * creates an overlay
    */
-  ngOnChanges() {
-    this.results.sort((a, b) => {
-      const aname = a.name.toUpperCase();
-      const bname = b.name.toUpperCase();
-
-      if (aname < bname) {
-        return -1;
-      } else if (aname > bname) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-  }
-
   openOverlay() {
     const config = new OverlayConfig();
     config.positionStrategy = this.overlay
