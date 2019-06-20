@@ -1,14 +1,17 @@
-<form [formGroup]="submissionForm" (ngSubmit)="onSubmit()" class="form-inline">
-  <div id="submissionbox">
+<form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
+  <div>
     <input formControlName="name" placeholder="Name" autocomplete="off"/>
-    <input formControlName="type" placeholder="Type" autocomplete="off"/>
-  </div>
-  <div id="submissionbox">
     <input formControlName="description" placeholder="Description" autocomplete="off"/>
+  </div>
+  <div>
+    <input formControlName="type" placeholder="Type" autocomplete="off"/>
     <input formControlName="link" placeholder="Link" autocomplete="url"/>
   </div>
-  <div id="submissionbox">
-      <input formControlName="personName" placeholder="Your name" autocomplete="name"/>
+  <div>
+    <input formControlName="terms" placeholder="Related search terms" autocomplete="off"/>
+  </div>
+  <div>
+      <input formControlName="person" placeholder="Your name" autocomplete="name"/>
       <input formControlName="email" placeholder="Email" autocomplete="email"/>
   </div>
   <button type="submit">Submit</button>

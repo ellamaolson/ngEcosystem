@@ -1,9 +1,16 @@
 <h2>Submissions</h2>
 
-<div *ngFor="let submission of submissions">
-  <h3>
-    <a [title]="submission.name + ' details'">
-      {{submission.name}}
-    </a>
-  </h3>
-</div>
+<mat-sidenav-container class="scrollbar">
+  <div *ngFor="let item of submissions | async" class="force-overflow" >
+    <ul>
+      <h3 (click)="onClick()">
+        <a [title]="item.name + ' details'">{{ item.name | titlecase }}</a>
+      </h3>
+      Type: {{ item.type }}<br>
+      Description: {{ item.description }}<br>
+      Person who submitted: {{ item.person }}<br>
+      Email: {{ item.email }}<br>
+      Date submitted: {{ item.date | date:'medium' }}<br>
+    </ul>
+  </div>
+</mat-sidenav-container>

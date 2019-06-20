@@ -1,18 +1,20 @@
 <h2>Results</h2>
 
-<div (click)="openOverlay()" class="text" *ngFor="let item of results | async">
-  <ul>
-    <h3>{{ item.name }}</h3>
-    Type: {{ item.type }}<br>
-    Description: {{ item.description }}<br>
-    Related search terms: {{ item.terms }}<br>
-  </ul>
-</div>
+<ng-container *ngIf="results | async as results">
+  <div (click)="openOverlay()" class="text" *ngFor="let item of results">
+    <ul>
+      <h3>{{ item.name }}</h3>
+      Type: {{ item.type }}<br>
+      Description: {{ item.description }}<br>
+      Related search terms: {{ item.terms }}<br>
+    </ul>
+  </div>
 
-<div>
-  <h4>
-    Think we are missing some results? Add a new submission to our results
-    database!
-  </h4>
-  <button [routerLink]="['/new-submission']">New Submission</button>
-</div>
+  <div>
+    <h4>
+      Think we are missing some results? Add a new submission to our results
+      database!
+    </h4>
+    <button [routerLink]="['/new-submission']">New Submission</button>
+  </div>
+</ng-container>

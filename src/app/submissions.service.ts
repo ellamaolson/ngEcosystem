@@ -1,47 +1,70 @@
 import { Injectable } from '@angular/core';
-import { Submission } from './submission';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SubmissionService {
-  items: Submission[] = []; // stores a list of current new submissions
+  /**
+   * stores an Observable list of current submissions results
+   */
+  resultObservable: Observable<any>;
+  /**
+   * Collection from the firestore database
+   */
+  submissionsCollection: AngularFirestoreCollection<any>;
+  /**
+   * Current values of the firestore database
+   */
+  submissionsdb: Observable<any[]>;
 
-  constructor() {}
-
-  addItem(entry: Submission) {
-    this.items.push(entry);
+  constructor(private db: AngularFirestore) {
+    this.submissionsCollection = db.collection('submissions');
+    this.submissionsdb = this.submissionsCollection.valueChanges();
+    this.submissionsdb.subscribe(item => console.log('HERE: ', item));
   }
 
-  deleteItem(entry: Submission) {
-    let index = 0;
-    for (const item of this.items) {
-      if (item === entry) {
-        break;
-      }
-      index++;
-    }
-    this.items.splice(index, 1);
+  /**
+   * Create a query to retrieve terms that match the searchTerm
+   * @param searchTerm is the search term entered
+   */
+  query(searchTerm: string) {
+    console.log('Querying');
+    this.resultObservable = this.db
+      .collection('submissions', ref => ref.where('terms', 'array-contains', searchTerm))
+      .valueChanges()
+      .pipe(tap(value => console.log(value)));
   }
 
-  getItems() {
-    return this.items;
+  addItem(
+    description: string,
+    email: string,
+    link: string,
+    name: string,
+    person: string,
+    terms: string[],
+    type: string,
+    date: number,
+  ) {
+
+    this.submissionsCollection.add({
+      description,
+      email,
+      link,
+      name,
+      person,
+      terms,
+      type,
+      date,
+    });
   }
 
-  isEmpty(): boolean {
-    return this.items.length === 0;
-  }
-
-  empty() {
-    this.items = [];
-    return this.items;
-  }
-
-  toString(): string {
-    let s = '';
-    for (const item of this.items) {
-      s += item.toString() + '\n';
-    }
-    return s;
+  /**
+   * Get the resulting observable from the query and subscribe to check its values
+   */
+  getAllItems() {
+    return this.db.collection('submissions', ref => ref.orderBy('date')).valueChanges();
   }
 }

@@ -4,18 +4,19 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatMenuModule } from '@angular/material/menu';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { ResultsListComponent } from './results-list/results-list.component';
-import { ResultDetailsComponent } from './result-details/result-details.component';
 import { GlossaryComponent } from './glossary/glossary.component';
 import { AboutComponent } from './about/about.component';
 import { ResultOverlayComponent } from './result-overlay/result-overlay.component';
@@ -29,13 +30,12 @@ import { SubmissionsListComponent } from './submissions-list/submissions-list.co
     TopBarComponent,
     SearchBarComponent,
     ResultsListComponent,
-    ResultDetailsComponent,
     GlossaryComponent,
     AboutComponent,
     ResultOverlayComponent,
     NewSubmissionComponent,
     AdminConsoleComponent,
-    SubmissionsListComponent
+    SubmissionsListComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,17 +47,19 @@ import { SubmissionsListComponent } from './submissions-list/submissions-list.co
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatMenuModule,
+    MatSidenavModule,
+    MatCardModule,
     RouterModule.forRoot([
       { path: '', component: SearchBarComponent },
-      { path: 'results', component: ResultsListComponent },
-      { path: 'glossary', component: GlossaryComponent},
-      { path: 'about', component: AboutComponent},
-      { path: 'result-overlay', component: ResultOverlayComponent},
-      { path: 'new-submission', component: NewSubmissionComponent},
-      { path: 'admin-console', component: AdminConsoleComponent},
-    ])
+      { path: 'results/:searchTerm', component: ResultsListComponent },
+      { path: 'glossary', component: GlossaryComponent },
+      { path: 'about', component: AboutComponent },
+      { path: 'result-overlay', component: ResultOverlayComponent },
+      { path: 'new-submission', component: NewSubmissionComponent },
+      { path: 'admin-console', component: AdminConsoleComponent },
+    ]),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AngularFirestoreModule],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

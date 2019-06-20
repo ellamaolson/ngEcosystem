@@ -1,0 +1,11 @@
+.scrollbar {
+  margin-left: 30px;
+  height: 600px;
+  width: 100%;
+  background: #eee;
+  margin-bottom: 25px;
+}
+
+.force-overflow {
+  min-height: 150px;
+}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SubmissionService } from '../submissions.service';
-import { Submission } from '../submission';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-submission',
@@ -10,29 +10,30 @@ import { Submission } from '../submission';
 })
 export class NewSubmissionComponent {
   submissionForm = new FormGroup({
-    name: new FormControl(''),
-    type: new FormControl(''),
     description: new FormControl(''),
+    email: new FormControl(''),
     link: new FormControl(''),
-    personName: new FormControl(''),
-    email: new FormControl('')
+    name: new FormControl(''),
+    person: new FormControl(''),
+    type: new FormControl(''),
+    terms: new FormControl('')
   });
 
-  constructor(private submissionService: SubmissionService) {}
+  constructor(private submissionService: SubmissionService,
+              private router: Router) {}
 
   onSubmit() {
-    const bundleSize = 0;
-    // ToDo: trigger automatic bundle measurer
-
-    const entry = new Submission(
-      this.submissionForm.value.name,
-      this.submissionForm.value.type,
+    this.submissionService.addItem(
       this.submissionForm.value.description,
+      this.submissionForm.value.email,
       this.submissionForm.value.link,
-      bundleSize,
-      this.submissionForm.value.personName,
-      this.submissionForm.value.email
+      this.submissionForm.value.name,
+      this.submissionForm.value.person,
+      this.submissionForm.value.type,
+      this.submissionForm.value.terms,
+      Date.now(),
     );
-    this.submissionService.addItem(entry);
+
+    this.router.navigate(['admin-console']);
   }
 }

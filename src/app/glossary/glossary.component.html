@@ -1,14 +1,7 @@
 <h2>Glossary</h2>
 
-<div *ngFor="let result of results; let i = index">
-  <div *ngIf="result.type === results[i - 1]?.type">
-    <h4>{{ result.name }}</h4>
-    <span>{{ result.description }}</span>
-  </div>
-  <div *ngIf="result.type != results[i - 1]?.type">
-    <br />
-    <h3 [title]="result.type">{{ result.type }}</h3>
-    <h4>{{ result.name }}</h4>
-    <span>{{ result.description }}</span>
-  </div>
+<div *ngFor="let result of allResults | async as results; index as i">
+  <h3 *ngIf="i == 0 || results[i].type != results[i-1].type"><br>{{ result.type }}</h3>
+  <h4>{{ result.name }}</h4>
+  <span>{{ result.description }}</span>
 </div>

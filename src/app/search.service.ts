@@ -25,30 +25,23 @@ export class SearchService {
 
   /**
    * Connect to firestore database and retrieve up-to-date values
-   * @param db
+   * @param db is the AngularFirestore database
    */
   constructor(private db: AngularFirestore) {
-    this.searchCollection = db.collection('test');
+    this.searchCollection = db.collection('search');
     this.searchdb = this.searchCollection.valueChanges();
-
-    // How to add to the database in firebase
-    // this.searchCollection.add({
-    //   name: 'Spongebob',
-    //   type: 'icon',
-    //   description: 'a sponge that lives under the sea in a pineapple',
-    //   terms: ['sponge', 'spongebob', 'nickelodeon', 'frycook']
-    // });
   }
 
   /**
    * Create a query to retrieve terms that match the searchTerm
-   * @param searchTerm
+   * and orders then by name
+   * @param searchTerm is the search term entered
    */
   query(searchTerm: string) {
-    console.log('Querying');
+    console.log('Querying for ', searchTerm);
     this.resultObservable = this.db
-      .collection('test', ref =>
-        ref.where('terms', 'array-contains', searchTerm)
+      .collection('search', ref =>
+        ref.orderBy('name').where('terms', 'array-contains', searchTerm)
       )
       .valueChanges()
       .pipe(tap(value => console.log(value)));
@@ -63,5 +56,19 @@ export class SearchService {
       console.log('Printing this: ', item)
     );
     return this.resultObservable;
+  }
+
+  /**
+   * Gets all items
+   */
+  getAllItems() {
+    return this.searchdb;
+  }
+
+  /**
+   * Gets all items in the database and orders them by type
+   */
+  getAllItemsOrderByType() {
+    return this.db.collection('search', ref => ref.orderBy('type')).valueChanges();
   }
 }

@@ -1,6 +1,14 @@
-<p>
-  admin-console works!
-</p>
-<div>
+<div *ngIf="afAuth?.user | async as user; else showLogin">
+  <h2>Admin Console</h2>
   <app-submissions-list></app-submissions-list>
+  <button (click)="logout()">Logout</button>
 </div>
+<ng-template #showLogin>
+  <p>Please login.</p>
+  <form [formGroup]="userForm">
+    <input formControlName="email" placeholder="Email address" autocomplete="off" />
+    <br>
+    <input formControlName="password" placeholder="Password" autocomplete="off" />
+  </form>
+  <button (click)="login()">Login</button>
+</ng-template>
