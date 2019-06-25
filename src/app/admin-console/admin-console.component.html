@@ -1,14 +1,30 @@
-<div *ngIf="afAuth?.user | async as user; else showLogin">
-  <h2>Admin Console</h2>
-  <app-submissions-list></app-submissions-list>
-  <button (click)="logout()">Logout</button>
+<div class="admin-container">
+  <mat-sidenav-container autosize *ngIf="user | async as user; else showLogin" class="admin-container">
+    <h1>Admin Console</h1>
+    <mat-sidenav opened mode="side">
+      <ul *ngFor="let item of submissions | async">
+        <h3 [routerLink]="[item.id]">
+          <a [title]="item.name + ' details'">{{ item.name | titlecase }}</a>
+        </h3>
+        <p style="margin-right: 10px;">
+          ID: {{ item.id }}<br />
+          Date: {{ item.date | date: 'medium' }}<br />
+        </p>
+      </ul>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+      <button (click)="logout()" class="logout-button">Logout</button>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
+
 <ng-template #showLogin>
-  <p>Please login.</p>
-  <form [formGroup]="userForm">
-    <input formControlName="email" placeholder="Email address" autocomplete="off" />
-    <br>
-    <input formControlName="password" placeholder="Password" autocomplete="off" />
-  </form>
-  <button (click)="login()">Login</button>
+  <div class="login-page">
+    <h1>Login</h1>
+    <img src="./assets/wildflowers.jpg" class="center-page-img">
+    <p>Welcome back to ngEcosystem! Login to access the Admin Console.</p>
+    <div><button (click)="loginGoogle()" class="loginGoogle-button">Login with Google</button></div>
+  </div>
 </ng-template>

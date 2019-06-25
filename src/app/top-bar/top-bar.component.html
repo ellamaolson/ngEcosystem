@@ -1,13 +1,10 @@
 <a [routerLink]="['/']">
-  <h1>ngEcosystem</h1>
+  <h1 id="site-title">ngEcosystem</h1>
 </a>
 
 <mat-menu #appMenu="matMenu">
     <a [routerLink]="['/']">
       <button mat-menu-item>Home</button>
-    </a>
-    <a [routerLink]="['results', '']">
-      <button mat-menu-item>Results</button>
     </a>
     <a [routerLink]="['about']">
         <button mat-menu-item>About</button>
@@ -15,7 +12,7 @@
     <a [routerLink]="['glossary']">
       <button mat-menu-item>Glossary</button>
     </a>
-    <a [routerLink]="['admin-console']">
+    <a [routerLink]="['admin-console', '']">
         <button mat-menu-item>Admin Console</button>
       </a>
 </mat-menu>

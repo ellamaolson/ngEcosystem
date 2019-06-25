@@ -1,23 +1,17 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection
-} from '@angular/fire/firestore';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SearchService {
+  searchCollection: AngularFirestoreCollection;
   /**
    * stores an Observable list of current search results
    */
   resultObservable: Observable<any>;
-  /**
-   * Collection from the firestore database
-   */
-  searchCollection: AngularFirestoreCollection<any>;
   /**
    * Current values of the firestore database
    */
@@ -38,23 +32,33 @@ export class SearchService {
    * @param searchTerm is the search term entered
    */
   query(searchTerm: string) {
-    console.log('Querying for ', searchTerm);
+    console.log('Search Service: Querying for ', searchTerm);
     this.resultObservable = this.db
-      .collection('search', ref =>
-        ref.orderBy('name').where('terms', 'array-contains', searchTerm)
-      )
+      .collection('search', ref => ref.orderBy('name').where('terms', 'array-contains', searchTerm))
       .valueChanges()
       .pipe(tap(value => console.log(value)));
+  }
+
+  addItem(
+    description: string,
+    link: string,
+    name: string,
+    terms: string[],
+    type: string,
+  ) {
+    this.searchCollection.add({
+      description,
+      link,
+      name,
+      terms,
+      type,
+    });
   }
 
   /**
    * Get the resulting observable from the query and subscribe to check its values
    */
   getItems() {
-    console.log('Getting Items: ', this.resultObservable);
-    this.resultObservable.subscribe(item =>
-      console.log('Printing this: ', item)
-    );
     return this.resultObservable;
   }
 

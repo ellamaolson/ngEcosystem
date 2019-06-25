@@ -1,16 +1,16 @@
-<h2>Results</h2>
+<h1>Results</h1>
 
 <ng-container *ngIf="results | async as results">
   <div (click)="openOverlay()" class="text" *ngFor="let item of results">
     <ul>
-      <h3>{{ item.name }}</h3>
+      <h2>{{ item.name }}</h2>
       Type: {{ item.type }}<br>
       Description: {{ item.description }}<br>
       Related search terms: {{ item.terms }}<br>
     </ul>
   </div>
 
-  <div>
+  <div style="margin-left: 30px; margin-top: 50px;">
     <h4>
       Think we are missing some results? Add a new submission to our results
       database!

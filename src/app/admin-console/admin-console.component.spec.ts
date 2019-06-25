@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminConsoleComponent } from './admin-console.component';
-import { SubmissionsListComponent } from '../submissions-list/submissions-list.component';
 
 describe('AdminConsoleComponent', () => {
   let component: AdminConsoleComponent;
@@ -9,7 +8,7 @@ describe('AdminConsoleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AdminConsoleComponent, SubmissionsListComponent]
+      declarations: [AdminConsoleComponent]
     }).compileComponents();
   }));
 

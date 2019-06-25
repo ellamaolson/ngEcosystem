@@ -1,18 +1,31 @@
+<h1 style="margin-left: 16px;">New Submission</h1>
 <form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
   <div>
-    <input formControlName="name" placeholder="Name" autocomplete="off"/>
-    <input formControlName="description" placeholder="Description" autocomplete="off"/>
+    <input formControlName="name" placeholder="Name" autocomplete="off" />
+    <input formControlName="description" placeholder="Description" autocomplete="off" />
   </div>
   <div>
-    <input formControlName="type" placeholder="Type" autocomplete="off"/>
-    <input formControlName="link" placeholder="Link" autocomplete="url"/>
+    <input formControlName="type" placeholder="Type" autocomplete="off" />
+    <input formControlName="link" placeholder="Link" autocomplete="url" />
   </div>
   <div>
-    <input formControlName="terms" placeholder="Related search terms" autocomplete="off"/>
+    <input formControlName="terms" placeholder="Related search terms" autocomplete="off" />
   </div>
   <div>
-      <input formControlName="person" placeholder="Your name" autocomplete="name"/>
-      <input formControlName="email" placeholder="Email" autocomplete="email"/>
+    <input formControlName="person" placeholder="Your name" autocomplete="name" />
+    <input formControlName="email" placeholder="Email" autocomplete="email" />
   </div>
-  <button type="submit">Submit</button>
+  <button type="submit" style="margin-left: 16px; margin-top: 20px;">Submit</button>
 </form>
+
+<ng-template #successPopup>
+  <h2>Your submission has been successfully submitted for review!</h2>
+  <p>We will review your submission shortly and add it to our database once approved.</p>
+  <p>Thank you for your help in improving our search results and recommendations!</p>
+  <button (click)="onHomeClick()">Home</button>
+</ng-template>
+
+<ng-template #failurePopup>
+  <h2>Unfortunately, your submission cannot be submitted for review.</h2>
+  <p>Please make sure all fields are filled out.</p>
+</ng-template>

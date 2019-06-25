@@ -31,10 +31,12 @@ export class ResultsListComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  /**
+   * Get searchterm passed through router, query database for it,
+   * and save results.
+   */
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.searchTerm = params.get('searchTerm');
-    });
+    this.searchTerm = this.route.snapshot.paramMap.get('searchTerm');
     this.searchService.query(this.searchTerm);
     this.results = this.searchService.getItems();
   }

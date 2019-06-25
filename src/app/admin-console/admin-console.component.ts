@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { SubmissionService, Submission } from '../submissions.service';
+import { shareAndCache } from '../share-and-cache-operator';
 
 @Component({
   selector: 'app-admin-console',
@@ -9,35 +11,32 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./admin-console.component.css'],
 })
 export class AdminConsoleComponent {
-  userForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
+  /**
+   * Get an observable array from the search service
+   * containing results from querying the search database
+   */
+  submissions: Observable<Submission[]> = this.submissionService.getAllItems();
+  user;
 
-  constructor(public afAuth: AngularFireAuth) {}
+  constructor(private submissionService: SubmissionService, public afAuth: AngularFireAuth) {
+    this.user = afAuth.user.pipe(shareAndCache('credentials'));
+  }
 
-  login() {
-    console.log('Logging in with email + password');
-    this.afAuth.auth
-      .signInWithEmailAndPassword(this.userForm.value.email, this.userForm.value.password)
-      .catch(error => {
-        if (error.code === 'auth/wrong-password') {
-          alert('Entered in wrong username or password.')
-        } else {
-          alert(error.message);
-        }
-        console.log('Error: ', error);
-      });
+  loginGoogle() {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
   logout() {
-    this.userForm.reset();
     this.afAuth.auth.signOut();
   }
 
-  // To include Google login:
-  // loginGoogle() {
-  //   this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-  // }
-  // <button (click)="loginGoogle()">Login with Google</button>
+  approve() {
+
+  }
+
+  deny() {
+
+  }
+
+
 }

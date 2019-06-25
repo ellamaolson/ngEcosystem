@@ -1,0 +1,13 @@
+<ng-container *ngIf="submission | async as submission">
+  <ul>
+    <h1>{{ submission.name | titlecase }}</h1>
+    <h2 *ngIf="id | async as id">Submission # {{ id }}</h2>
+    Date: {{ submission.date | date: 'medium' }}<br>
+    Type: {{ submission.type }}<br />
+    Description: {{ submission.description }}<br />
+    Person who submitted: {{ submission.person }}<br />
+    Email: {{ submission.email }}<br />
+  </ul>
+  <button (click)="approve()" class="approve-button">Approve</button>
+  <button (click)="deny()" class="deny-button">Deny</button>
+</ng-container>

@@ -1,6 +1,6 @@
 /* Global Styles */
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~@angular/cdk/overlay-prebuilt.css';
 
 * {
@@ -20,21 +20,28 @@ body {
   flex-direction: row;
 }
 
-router-outlet + *  {
+router-outlet + * {
   padding: 0 16px;
+}
+
+#site-title {
+  font-size: 28px;
+  font-weight: lighter;
+  color: white;
+  margin: 0;
+  text-align: left;
 }
 
 /* Text */
 
 h1 {
   font-size: 32px;
+  font-weight: lighter;
+  text-align: center;
 }
 
 h2 {
   font-size: 20px;
-}
-
-h1, h2 {
   font-weight: lighter;
 }
 
@@ -60,8 +67,8 @@ input {
   font-size: 14px;
   border-radius: 2px;
   padding: 8px;
-  margin-bottom: 16px;
-  border: 1px solid #BDBDBD;
+  margin: 16px;
+  border: 1px solid #bdbdbd;
 }
 
 label {
@@ -72,8 +79,17 @@ label {
   text-transform: uppercase;
 }
 
+/* Unordered List */
+
+ul {
+  padding-inline-start: 30px;
+  padding-inline-end: 10px;
+}
+
 /* Button */
-.button, button {
+
+.button,
+button {
   display: inline-flex;
   align-items: center;
   padding: 8px 16px;
@@ -85,12 +101,14 @@ label {
   border: none;
 }
 
-.button:hover, button:hover {
+.button:hover,
+button:hover {
   opacity: 0.8;
   font-weight: normal;
 }
 
-.button:disabled, button:disabled {
+.button:disabled,
+button:disabled {
   opacity: 0.5;
   cursor: auto;
 }
@@ -107,7 +125,89 @@ label {
   padding-right: 4px;
 }
 
-/* Top Bar */
+/* Custom Classes */
+
+.search-input {
+  font-size: 18px;
+  padding: 10px;
+}
+
+.go-button {
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-left: 20px;
+  border-radius: 20px;
+}
+
+/* Login Page */
+
+.login-page {
+  width: var(--content-width);
+  min-height: fit-content;
+  position: relative;
+  width: 450px;
+  margin: 5% auto 0;
+  text-align: center;
+}
+
+.loginGoogle-button {
+  width: 450px;
+  margin-top: 30px;
+  display: inline-block;
+}
+
+.logout-button {
+  display: flex;
+  position: absolute;
+  margin-top: 100px;
+}
+
+.approve-button {
+  display: inline-block;
+  background-color: #9ccc65;
+  margin: 10px;
+  margin-left: 50px;
+  width: 80px;
+}
+
+.deny-button {
+  display: inline-block;
+  background-color: #ef5350;
+  margin: 10px;
+  margin-left: 50px;
+  width: 80px;
+}
+
+/* Img */
+
+.center-page-img {
+  width: 100%;
+  max-width: 450px;
+}
+
+/* App About and Results-List */
+
+app-about,
+app-results-list,
+app-glossary {
+  width: var(--content-width);
+  min-height: fit-content;
+  position: relative;
+  width: 1000px;
+  margin: 5% auto 0;
+}
+
+/* App New-Submission and Search-Bar */
+
+app-new-submission,
+app-search-bar {
+  width: var(--content-width);
+  min-height: fit-content;
+  position: relative;
+  margin: 30px auto 0;
+}
+
+/* App Top Bar */
 
 app-top-bar {
   width: 100%;
@@ -119,46 +219,6 @@ app-top-bar {
   justify-content: space-between;
   align-items: center;
 }
-
-app-top-bar h1 {
-  color: white;
-  margin: 0;
-}
-
-app-search-bar {
-  width: var(--content-width);
-  min-height: fit-content;
-  position: relative;
-  margin: 100px auto 0;
-}
-
-app-search-bar input {
-  font-size: 18px;
-  border-radius: 12px;
-  padding: 10px;
-}
-
-app-search-bar button {
-  font-size: 18px;
-  padding: 10px 10px;
-  margin-left: 20px;
-  border-radius: 20px;
-}
-
-app-new-submission input {
-  font-size: 18px;
-  border-radius: 2px;
-  padding: 10px;
-  margin: 20px;
-}
-
-app-new-submission button {
-  font-size: 18px;
-  padding: 10px 10px;
-  margin-left: 20px;
-  border-radius: 12px;
-}
-
 
 /*
 Copyright Google LLC. All Rights Reserved.
