@@ -1,7 +1,7 @@
 <h1 style="margin-left: 16px;">New Submission</h1>
 <form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
   <div>
-    <input formControlName="name" placeholder="Name" autocomplete="off" />
+    <input formControlName="name" placeholder="Resource name" autocomplete="off" />
     <input formControlName="description" placeholder="Description" autocomplete="off" />
   </div>
   <div>
@@ -11,18 +11,19 @@
   <div>
     <input formControlName="terms" placeholder="Related search terms" autocomplete="off" />
   </div>
-  <div>
-    <input formControlName="person" placeholder="Your name" autocomplete="name" />
-    <input formControlName="email" placeholder="Email" autocomplete="email" />
-  </div>
   <button type="submit" style="margin-left: 16px; margin-top: 20px;">Submit</button>
 </form>
 
 <ng-template #successPopup>
   <h2>Your submission has been successfully submitted for review!</h2>
-  <p>We will review your submission shortly and add it to our database once approved.</p>
+  <p>We will be reviewing your submission shortly.</p>
   <p>Thank you for your help in improving our search results and recommendations!</p>
-  <button (click)="onHomeClick()">Home</button>
+  <p>
+    You can see updates on the progress of your submission here: <br />
+    <b>
+      <a (click)="routeToStatusPage()" *ngIf="statusUrl">submission-status/{{ statusUrl }}</a>
+    </b>
+  </p>
 </ng-template>
 
 <ng-template #failurePopup>

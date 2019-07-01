@@ -26,6 +26,7 @@ import { NewSubmissionComponent } from './new-submission/new-submission.componen
 import { AdminConsoleComponent } from './admin-console/admin-console.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SubmissionStatusComponent } from './submission-status/submission-status.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     NewSubmissionComponent,
     AdminConsoleComponent,
     SubmissionComponent,
+    SubmissionStatusComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,7 @@ import { MatDialogModule } from '@angular/material/dialog';
       { path: 'about', component: AboutComponent },
       { path: 'result-overlay', component: ResultOverlayComponent },
       { path: 'new-submission', component: NewSubmissionComponent },
+      { path: 'submission-status/:status-id', component: SubmissionStatusComponent },
       {
         path: 'admin-console',
         component: AdminConsoleComponent,

@@ -1,13 +1,26 @@
-<ng-container *ngIf="submission | async as submission">
-  <ul>
-    <h1>{{ submission.name | titlecase }}</h1>
-    <h2 *ngIf="id | async as id">Submission # {{ id }}</h2>
-    Date: {{ submission.date | date: 'medium' }}<br>
-    Type: {{ submission.type }}<br />
-    Description: {{ submission.description }}<br />
-    Person who submitted: {{ submission.person }}<br />
-    Email: {{ submission.email }}<br />
-  </ul>
-  <button (click)="approve()" class="approve-button">Approve</button>
-  <button (click)="deny()" class="deny-button">Deny</button>
+<ng-container *ngIf="resourceObservable | async as resource">
+  <ng-container *ngIf="idObservable | async as id">
+    <ul>
+      <h1>{{ resource.name | titlecase }}</h1>
+      <h2>resource # {{ id }}</h2>
+      Date: {{ resource.date | date: 'medium' }}<br>
+      Type: {{ resource.type }}<br />
+      Description: {{ resource.description }}<br />
+      Person who submitted: {{ resource.person }}<br />
+      Email: {{ resource.email }}<br />
+    </ul>
+    <form [formGroup]="searchTermsForm" style="padding-inline-start: 30px;">
+      <p>Please enter search terms to go with this resource.</p>
+      <input
+        formControlName="searchTerms"
+        placeholder="Search terms"
+        autocomplete="off"
+        style="margin: 0px; margin-bottom: 50px;"
+      />
+    </form>
+    <div>
+      <button (click)="approve(resource, id)" class="approve-button">Approve</button>
+      <button (click)="deny(resource, id)" class="deny-button">Deny</button>
+    </div>
+  </ng-container>
 </ng-container>

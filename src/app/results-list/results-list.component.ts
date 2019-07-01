@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
-import { SearchService } from '../search.service';
+import { ResourcesService } from '../resources.service';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ResultOverlayComponent } from '../result-overlay/result-overlay.component';
@@ -24,7 +24,7 @@ export class ResultsListComponent implements OnInit {
   results: Observable<any[]>;
 
   constructor(
-    private searchService: SearchService,
+    private resourceService: ResourcesService,
     public overlay: Overlay,
     public viewContainerRef: ViewContainerRef,
     db: AngularFirestore,
@@ -37,8 +37,7 @@ export class ResultsListComponent implements OnInit {
    */
   ngOnInit() {
     this.searchTerm = this.route.snapshot.paramMap.get('searchTerm');
-    this.searchService.query(this.searchTerm);
-    this.results = this.searchService.getItems();
+    this.results = this.resourceService.queryResourcesBySearchTerm(this.searchTerm);
   }
 
   /**

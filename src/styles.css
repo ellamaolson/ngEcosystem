@@ -185,15 +185,16 @@ button:disabled {
   max-width: 450px;
 }
 
-/* App About and Results-List */
+/* App About, Results-List, Glossary, Submission-Status */
 
 app-about,
 app-results-list,
-app-glossary {
+app-glossary,
+app-submission-status {
   width: var(--content-width);
   min-height: fit-content;
   position: relative;
-  width: 1000px;
+  max-width: 1000px;
   margin: 5% auto 0;
 }
 

@@ -1,8 +1,8 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { SubmissionService } from '../submissions.service';
+import { Component, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ResourcesService, Resource, status} from '../resources.service';
 
 @Component({
   selector: 'app-new-submission',
@@ -11,13 +11,11 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class NewSubmissionComponent {
   submissionForm = new FormGroup({
-    description: new FormControl(''),
-    email: new FormControl(''),
-    link: new FormControl(''),
-    name: new FormControl(''),
-    person: new FormControl(''),
-    type: new FormControl(''),
-    terms: new FormControl(''),
+    description: new FormControl('', [Validators.required]),
+    link: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required]),
+    terms: new FormControl('', [Validators.required]),
   });
 
   @ViewChild('successPopup', { static: false }) successPopup;
@@ -25,37 +23,54 @@ export class NewSubmissionComponent {
   dialogRef;
   statusUrl: string;
 
-  constructor(private submissionService: SubmissionService, private router: Router, public dialog: MatDialog) {
+  constructor(private resourceService: ResourcesService, private router: Router, public dialog: MatDialog) {
     this.statusUrl = 'Hi.com';
   }
 
+  /**
+   * Create a new submission, add it to the database, and notify of success.
+   */
   onSubmit(): void {
-    try{
-      this.submissionService.addItem(
-        this.submissionForm.value.description,
-        this.submissionForm.value.email,
-        this.submissionForm.value.link,
-        this.submissionForm.value.name,
-        this.submissionForm.value.person,
-        this.submissionForm.value.type,
-        this.submissionForm.value.terms,
-        Date.now(),
-      );
+    if (!this.submissionForm.valid) {
+      alert('Please fill out all form boxes.');
+      return;
+    }
+
+    try {
+      const sub: Resource = {
+        description: this.submissionForm.value.description,
+        link: this.submissionForm.value.link,
+        name: this.submissionForm.value.name,
+        status: status.waiting,
+        terms: this.parseStringToArray(this.submissionForm.value.terms),
+        type: this.submissionForm.value.type,
+        date: Date.now(),
+      };
+
+      this.resourceService.addResource(sub).then(subId => {
+        this.statusUrl = subId;
+      });
 
       this.dialogRef = this.dialog.open(this.successPopup, {
         width: '600px',
-        data: { url: this.statusUrl },
       });
-
-    } catch(error) {
+    } catch (error) {
       this.dialogRef = this.dialog.open(this.failurePopup, {
         width: '600px',
       });
     }
   }
 
-  onHomeClick(): void {
-    this.router.navigate(['/']);
+  /**
+   * Separates a string into a string array
+   * @param term
+   */
+  parseStringToArray(term: string): string[] {
+    return term.split(',').map((item: string) => item.trim());
+  }
+
+  routeToStatusPage(): void {
+    this.router.navigate(['/submission-status', this.statusUrl]);
     this.dialogRef.close();
   }
 }
