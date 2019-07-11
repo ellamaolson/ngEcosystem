@@ -1,26 +1,65 @@
 <ng-container *ngIf="resourceObservable | async as resource">
   <ng-container *ngIf="idObservable | async as id">
-    <ul>
-      <h1>{{ resource.name | titlecase }}</h1>
-      <h2>resource # {{ id }}</h2>
-      Date: {{ resource.date | date: 'medium' }}<br>
-      Type: {{ resource.type }}<br />
-      Description: {{ resource.description }}<br />
-      Person who submitted: {{ resource.person }}<br />
-      Email: {{ resource.email }}<br />
-    </ul>
-    <form [formGroup]="searchTermsForm" style="padding-inline-start: 30px;">
-      <p>Please enter search terms to go with this resource.</p>
-      <input
-        formControlName="searchTerms"
-        placeholder="Search terms"
-        autocomplete="off"
-        style="margin: 0px; margin-bottom: 50px;"
-      />
-    </form>
-    <div>
-      <button (click)="approve(resource, id)" class="approve-button">Approve</button>
-      <button (click)="deny(resource, id)" class="deny-button">Deny</button>
-    </div>
+    <mat-card>
+      <mat-card-title>
+        <a href="{{ resource.link }}">{{ resource.name | titlecase }}</a>
+      </mat-card-title>
+      <mat-card-subtitle> ID #{{ id }} </mat-card-subtitle>
+      <mat-card-content>
+        <table>
+          <tr>
+            <td><b>Type:</b> {{ resource.type }}</td>
+          </tr>
+          <br />
+          <tr>
+            <td>
+              <b>Description:</b><br />{{ resource.description }}
+              <a href="{{ resource.npm }}"> {{ resource.npm }}</a>
+            </td>
+          </tr>
+          <br />
+          <tr>
+            <td><b>Provided Search Terms:</b><br />{{ resource.terms }}</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <form [formGroup]="searchTermsForm">
+                <mat-form-field class="full-width">
+                  <input
+                    formControlName="searchTerms"
+                    matInput
+                    placeholder="Additional search terms"
+                    autocomplete="off"
+                  />
+                </mat-form-field>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td *ngIf="resource.bundleSize; else noBundleSize"><b>Bundle Size:</b> {{ resource.bundleSize }}</td>
+            <ng-template #noBundleSize>
+              No bundle size provided.
+            </ng-template>
+          </tr>
+          <br />
+          <tr>
+            <td *ngIf="resource.ngAdd; else noNgAdd">{{ resource.ngAdd }}</td>
+            <ng-template #noNgAdd>
+              Does not support ngAdd.
+            </ng-template>
+
+            <td *ngIf="resource.ngUpdate; else noNgUpdate">{{ resource.ngUpdate }}</td>
+            <ng-template #noNgUpdate>
+              Does not support ngUpdate.
+            </ng-template>
+          </tr>
+          <br />
+        </table>
+      </mat-card-content>
+      <mat-card-footer>
+        <button (click)="approve(resource, id)" class="approve-button">Approve</button>
+        <button (click)="deny(resource, id)" class="deny-button">Deny</button>
+      </mat-card-footer>
+    </mat-card>
   </ng-container>
 </ng-container>

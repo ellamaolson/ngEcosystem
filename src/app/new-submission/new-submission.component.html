@@ -1,18 +1,83 @@
-<h1 style="margin-left: 16px;">New Submission</h1>
-<form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
-  <div>
-    <input formControlName="name" placeholder="Resource name" autocomplete="off" />
-    <input formControlName="description" placeholder="Description" autocomplete="off" />
-  </div>
-  <div>
-    <input formControlName="type" placeholder="Type" autocomplete="off" />
-    <input formControlName="link" placeholder="Link" autocomplete="url" />
-  </div>
-  <div>
-    <input formControlName="terms" placeholder="Related search terms" autocomplete="off" />
-  </div>
-  <button type="submit" style="margin-left: 16px; margin-top: 20px;">Submit</button>
-</form>
+<mat-card>
+  <mat-card-title>
+    New Submission
+  </mat-card-title>
+
+  <mat-card-content>
+    <form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
+      <table>
+        <br />
+        <tr>
+          <td>
+            <mat-form-field>
+              <input formControlName="name" matInput placeholder="Tool name" autocomplete="off" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input formControlName="type" matInput placeholder="Type/Category" autocomplete="off" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="full-width">
+              <input formControlName="description" matInput placeholder="Description" autocomplete="off" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="full-width">
+              <input formControlName="link" matInput placeholder="Link" autocomplete="url" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="full-width">
+              <input formControlName="terms" matInput placeholder="Related search terms" autocomplete="off" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+        <tr>
+          <td>
+            <mat-form-field>
+              <input formControlName="npm" matInput placeholder="Npm package name" autocomplete="off" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input formControlName="bundleSize" matInput placeholder="Bundle Size" autocomplete="off" />
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <table>
+      <br />
+      <tr>
+        <td style="padding-inline-start: 10px;">
+          Does it support?<mat-checkbox class="full-width" [(ngModel)]="ngAddChecked">ng-add</mat-checkbox>
+        </td>
+        <td>
+          <mat-checkbox class="full-width" [(ngModel)]="ngUpdateChecked">ng-update</mat-checkbox>
+        </td>
+      </tr>
+      <br />
+      <br />
+      <tr>
+        <td colspan="2" class="full-width" style="padding-inline-start: 10px;">
+          <button type="submit" (click)="onSubmit()" style="text-align: center">Submit</button>
+        </td>
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
 
 <ng-template #successPopup>
   <h2>Your submission has been successfully submitted for review!</h2>

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ResourcesService, Resource, status} from '../resources.service';
+import { ResourcesService, Resource, status } from '../resources.service';
 
 @Component({
   selector: 'app-new-submission',
@@ -11,21 +11,26 @@ import { ResourcesService, Resource, status} from '../resources.service';
 })
 export class NewSubmissionComponent {
   submissionForm = new FormGroup({
+    bundleSize: new FormControl(''),
     description: new FormControl('', [Validators.required]),
     link: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
-    type: new FormControl('', [Validators.required]),
+    npm: new FormControl(''),
     terms: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required]),
   });
+
+  ngAddChecked: false;
+  ngUpdateChecked: false;
 
   @ViewChild('successPopup', { static: false }) successPopup;
   @ViewChild('failurePopup', { static: false }) failurePopup;
   dialogRef;
   statusUrl: string;
 
-  constructor(private resourceService: ResourcesService, private router: Router, public dialog: MatDialog) {
-    this.statusUrl = 'Hi.com';
-  }
+
+
+  constructor(private resourceService: ResourcesService, private router: Router, public dialog: MatDialog) {}
 
   /**
    * Create a new submission, add it to the database, and notify of success.
@@ -36,15 +41,33 @@ export class NewSubmissionComponent {
       return;
     }
 
+    if (this.ngAddChecked == null) {
+      this.ngAddChecked = false;
+    }
+
+    if(this.ngUpdateChecked == null) {
+      this.ngUpdateChecked = false;
+    }
+
+    console.log(
+      'New Submission: ngAdd ',
+      this.ngAddChecked, ' and ngUpdate',
+      this.ngUpdateChecked
+    );
+
     try {
       const sub: Resource = {
+        bundleSize: this.submissionForm.value.bundleSize,
+        date: Date.now(),
         description: this.submissionForm.value.description,
         link: this.submissionForm.value.link,
         name: this.submissionForm.value.name,
+        ngAdd: this.ngAddChecked,
+        ngUpdate: this.ngUpdateChecked,
+        npm: 'https://www.npmjs.com/package/' + this.submissionForm.value.npm,
         status: status.waiting,
         terms: this.parseStringToArray(this.submissionForm.value.terms),
         type: this.submissionForm.value.type,
-        date: Date.now(),
       };
 
       this.resourceService.addResource(sub).then(subId => {

@@ -1,0 +1,43 @@
+tr.table-detail-row {
+  height: 0;
+}
+
+tr.table-element-row:not(.table-expanded-row):hover {
+  background: #777;
+}
+
+tr.table-element-row:not(.table-expanded-row):active {
+  background: #efefef;
+}
+
+.table-element-row td {
+  border-bottom-width: 0;
+}
+
+.table-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.table-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.table-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.table-element-description {
+  padding: 16px;
+}
+
+.table-element-description-attribution {
+  opacity: 0.5;
+}

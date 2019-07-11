@@ -10,14 +10,18 @@ export enum status {
 }
 
 export interface Resource {
+  bundleSize: number;
+  date?: number;
   description: string;
+  id?: string;
   link: string;
   name: string;
+  ngAdd: boolean;
+  ngUpdate: boolean;
+  npm: string;
+  status: status;
   terms: string[];
   type: string;
-  status: status;
-  id?: string;
-  date?: number;
 }
 
 @Injectable({
@@ -142,8 +146,7 @@ export class ResourcesService {
     console.log('Resource Service: Querying for search term ', resourceTerm);
     const resourceObservable: Observable<Resource[]> = this.db
       .collection<Resource>('resources', ref => ref.orderBy('name').where('terms', 'array-contains', resourceTerm))
-      .valueChanges()
-      .pipe(tap(value => console.log('Query for terms ', value)));
+      .valueChanges();
 
     return resourceObservable;
   }

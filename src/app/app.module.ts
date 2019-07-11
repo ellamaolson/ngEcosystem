@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -13,6 +13,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatInputModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -57,8 +61,14 @@ import { SubmissionStatusComponent } from './submission-status/submission-status
     MatDividerModule,
     MatListModule,
     MatDialogModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatInputModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '', component: SearchBarComponent },
+      { path: 'results', component: ResultsListComponent },
       { path: 'results/:searchTerm', component: ResultsListComponent },
       { path: 'glossary', component: GlossaryComponent },
       { path: 'about', component: AboutComponent },

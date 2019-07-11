@@ -76,7 +76,6 @@ label {
   font-weight: bold;
   margin-bottom: 4px;
   display: block;
-  text-transform: uppercase;
 }
 
 /* Unordered List */
@@ -84,6 +83,12 @@ label {
 ul {
   padding-inline-start: 30px;
   padding-inline-end: 10px;
+}
+
+/* Table */
+
+table {
+  width: 100%;
 }
 
 /* Button */
@@ -178,11 +183,41 @@ button:disabled {
   width: 80px;
 }
 
+/* Rest and Focus on a button */
+.rest{
+  border-radius: 20px;
+}
+
+.rest:focus {
+  outline: none;
+}
+
+
 /* Img */
 
 .center-page-img {
   width: 100%;
   max-width: 450px;
+}
+
+/* Material Card */
+
+.mat-card {
+  text-align: -webkit-center;
+  margin: 20px;
+}
+
+.mat-form-field {
+  margin: 10px;
+}
+
+.mat-checkbox {
+  margin: 10px;
+}
+
+.full-width {
+  width: 100%;
+  padding-right: 20px;
 }
 
 /* App About, Results-List, Glossary, Submission-Status */
