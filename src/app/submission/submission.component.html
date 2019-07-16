@@ -1,60 +1,108 @@
 <ng-container *ngIf="resourceObservable | async as resource">
   <ng-container *ngIf="idObservable | async as id">
-    <mat-card>
+    <mat-card [class.scrollable]="mobileQuery.matches">
       <mat-card-title>
         <a href="{{ resource.link }}">{{ resource.name | titlecase }}</a>
       </mat-card-title>
       <mat-card-subtitle> ID #{{ id }} </mat-card-subtitle>
-      <mat-card-content>
-        <table>
-          <tr>
-            <td><b>Type:</b> {{ resource.type }}</td>
-          </tr>
-          <br />
-          <tr>
-            <td>
-              <b>Description:</b><br />{{ resource.description }}
-              <a href="{{ resource.npm }}"> {{ resource.npm }}</a>
-            </td>
-          </tr>
-          <br />
-          <tr>
-            <td><b>Provided Search Terms:</b><br />{{ resource.terms }}</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <form [formGroup]="searchTermsForm">
-                <mat-form-field class="full-width">
-                  <input
-                    formControlName="searchTerms"
-                    matInput
-                    placeholder="Additional search terms"
-                    autocomplete="off"
-                  />
-                </mat-form-field>
-              </form>
-            </td>
-          </tr>
-          <tr>
-            <td *ngIf="resource.bundleSize; else noBundleSize"><b>Bundle Size:</b> {{ resource.bundleSize }}</td>
-            <ng-template #noBundleSize>
-              No bundle size provided.
-            </ng-template>
-          </tr>
-          <br />
-          <tr>
-            <td *ngIf="resource.ngAdd; else noNgAdd">{{ resource.ngAdd }}</td>
-            <ng-template #noNgAdd>
-              Does not support ngAdd.
-            </ng-template>
 
-            <td *ngIf="resource.ngUpdate; else noNgUpdate">{{ resource.ngUpdate }}</td>
-            <ng-template #noNgUpdate>
-              Does not support ngUpdate.
-            </ng-template>
-          </tr>
-          <br />
-        </table>
+      <mat-card-content>
+
+        <!-- Mobile View -->
+        <div *ngIf="mobileQuery.matches; else isDesktop">
+          <form [formGroup]="submissionEditsForm" (ngSubmit)="approve(resource, id)">
+            <table>
+
+              <!-- Iterate through the different fields of resource -->
+              <div *ngFor="let row of fields">
+                <tr>
+                  <td>
+                    <b>{{ row }}</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td *ngIf="row == 'terms'; else otherFields">{{ resource[row] | json }}</td>
+                  <ng-template #otherFields>
+                    <td>{{ resource[row] }}</td>
+                  </ng-template>
+                </tr>
+                <tr>
+                  <td *ngIf="row == 'ngAdd' || row == 'ngUpdate'; else formFields">
+                    <mat-radio-group *ngIf="row == 'ngAdd'; else ngUpdate" formControlName="ngAddChecked">
+                      <label>Does it support ng add?</label>
+                      <mat-radio-button [value]="true">Yes</mat-radio-button>
+                      <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                    <ng-template #ngUpdate>
+                      <mat-radio-group formControlName="ngUpdateChecked">
+                        <label>Does it support ng update?</label>
+                        <mat-radio-button [value]="true">Yes</mat-radio-button>
+                        <mat-radio-button [value]="false">No</mat-radio-button>
+                      </mat-radio-group>
+                    </ng-template>
+                  </td>
+
+                  <ng-template #formFields>
+                    <td>
+                      <mat-form-field>
+                        <input [formControlName]="row" matInput [placeholder]="row" autocomplete="off" />
+                      </mat-form-field>
+                    </td>
+                  </ng-template>
+                </tr>
+              </div>
+            </table>
+          </form>
+        </div>
+
+        <!-- Desktop View -->
+        <ng-template #isDesktop>
+          <form [formGroup]="submissionEditsForm" (ngSubmit)="approve(resource, id)">
+            <table>
+              <!-- Layout -->
+              <tr>
+                <td><b>Category</b></td>
+                <td><b>Submission Details</b></td>
+                <td><b>Edits</b></td>
+              </tr>
+
+              <!-- Iterate through the different fields of resource -->
+              <tr *ngFor="let row of fields">
+                <td>
+                  <b>{{ row }}</b>
+                </td>
+
+                <td *ngIf="row == 'terms'; else otherFields">{{ resource[row] | json }}</td>
+                <ng-template #otherFields>
+                  <td>{{ resource[row] }}</td>
+                </ng-template>
+
+                <td *ngIf="row == 'ngAdd' || row == 'ngUpdate'; else formFields">
+                  <mat-radio-group *ngIf="row == 'ngAdd'; else ngUpdate" formControlName="ngAddChecked">
+                    <label>Does it support ng add?</label>
+                    <mat-radio-button [value]="true">Yes</mat-radio-button>
+                    <mat-radio-button [value]="false">No</mat-radio-button>
+                  </mat-radio-group>
+                  <ng-template #ngUpdate>
+                    <mat-radio-group formControlName="ngUpdateChecked">
+                      <label>Does it support ng update?</label>
+                      <mat-radio-button [value]="true">Yes</mat-radio-button>
+                      <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                  </ng-template>
+                </td>
+
+                <ng-template #formFields>
+                  <td>
+                    <mat-form-field>
+                      <input [formControlName]="row" matInput [placeholder]="row" autocomplete="off" />
+                    </mat-form-field>
+                  </td>
+                </ng-template>
+              </tr>
+            </table>
+          </form>
+        </ng-template>
       </mat-card-content>
       <mat-card-footer>
         <button (click)="approve(resource, id)" class="approve-button">Approve</button>

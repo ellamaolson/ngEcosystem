@@ -1,7 +1,12 @@
-<div class="admin-container">
-  <mat-sidenav-container autosize *ngIf="user | async as user; else showLogin" class="admin-container">
-    <h1>Admin Console</h1>
-    <mat-sidenav opened mode="side">
+<div *ngIf="user | async as user; else showLogin" class="admin-container" [class.is-mobile]="mobileQuery.matches">
+  <mat-sidenav-container autosize class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav
+      #snav
+      style="max-width: 80%;"
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+    >
       <ul *ngFor="let item of resources | async">
         <h3>
           <a [routerLink]="[item.id]" [title]="item.name + ' details'">{{ item.name | titlecase }}</a>
@@ -14,6 +19,8 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
+      <h1 style="margin-bottom: 0px;">Admin Console</h1>
+      <button style="margin: 5% auto 0; margin-top: 10px; display: flex;" (click)="snav.toggle()">Resources</button>
       <router-outlet></router-outlet>
       <button (click)="logout()" class="logout-button">Logout</button>
     </mat-sidenav-content>

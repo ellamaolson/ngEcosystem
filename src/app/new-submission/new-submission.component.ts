@@ -10,9 +10,14 @@ import { ResourcesService, Resource, status } from '../resources.service';
   styleUrls: ['./new-submission.component.css'],
 })
 export class NewSubmissionComponent {
+  /**
+   * Form to enter all new submission input, with some validators
+   * for required inputs.
+   */
   submissionForm = new FormGroup({
     bundleSize: new FormControl(''),
     description: new FormControl('', [Validators.required]),
+    github: new FormControl(''),
     link: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     npm: new FormControl(''),
@@ -20,6 +25,9 @@ export class NewSubmissionComponent {
     type: new FormControl('', [Validators.required]),
   });
 
+  /**
+   * ng-add and ng-update checkbox values
+   */
   ngAddChecked: false;
   ngUpdateChecked: false;
 
@@ -28,12 +36,10 @@ export class NewSubmissionComponent {
   dialogRef;
   statusUrl: string;
 
-
-
   constructor(private resourceService: ResourcesService, private router: Router, public dialog: MatDialog) {}
 
   /**
-   * Create a new submission, add it to the database, and notify of success.
+   * Validate input, create a new submission, add it to the database, and notify of success.
    */
   onSubmit(): void {
     if (!this.submissionForm.valid) {
@@ -41,35 +47,41 @@ export class NewSubmissionComponent {
       return;
     }
 
+    if (!this.submissionForm.value.github.includes('https://github.com/')) {
+      const str: string = this.submissionForm.value.github;
+      this.submissionForm.value.github = 'https://github.com/' + str;
+    }
+
+    if (!this.submissionForm.value.npm.includes('https://www.npmjs.com/package/')) {
+      const str: string = this.submissionForm.value.github;
+      this.submissionForm.value.github = 'https://www.npmjs.com/package/' + str;
+    }
+
     if (this.ngAddChecked == null) {
       this.ngAddChecked = false;
     }
 
-    if(this.ngUpdateChecked == null) {
+    if (this.ngUpdateChecked == null) {
       this.ngUpdateChecked = false;
     }
 
-    console.log(
-      'New Submission: ngAdd ',
-      this.ngAddChecked, ' and ngUpdate',
-      this.ngUpdateChecked
-    );
+    const sub: Resource = {
+      bundleSize: this.submissionForm.value.bundleSize,
+      date: Date.now(),
+      description: this.submissionForm.value.description,
+      github: this.submissionForm.value.github,
+      link: this.submissionForm.value.link,
+      name: this.submissionForm.value.name,
+      ngAdd: this.ngAddChecked,
+      ngUpdate: this.ngUpdateChecked,
+      npm: this.submissionForm.value.npm,
+      status: status.waiting,
+      terms: this.parseStringToArray(this.submissionForm.value.terms),
+      type: this.submissionForm.value.type,
+    };
 
     try {
-      const sub: Resource = {
-        bundleSize: this.submissionForm.value.bundleSize,
-        date: Date.now(),
-        description: this.submissionForm.value.description,
-        link: this.submissionForm.value.link,
-        name: this.submissionForm.value.name,
-        ngAdd: this.ngAddChecked,
-        ngUpdate: this.ngUpdateChecked,
-        npm: 'https://www.npmjs.com/package/' + this.submissionForm.value.npm,
-        status: status.waiting,
-        terms: this.parseStringToArray(this.submissionForm.value.terms),
-        type: this.submissionForm.value.type,
-      };
-
+      // Add resource to database
       this.resourceService.addResource(sub).then(subId => {
         this.statusUrl = subId;
       });

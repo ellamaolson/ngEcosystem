@@ -45,6 +45,10 @@ h2 {
   font-weight: lighter;
 }
 
+h3 {
+  padding-right: 10px;
+}
+
 p {
   font-size: 14px;
 }
@@ -162,9 +166,9 @@ button:disabled {
 }
 
 .logout-button {
-  display: flex;
-  position: absolute;
-  margin-top: 100px;
+  display: block;
+  margin: 5% auto 0;
+  margin-top: 0px;
 }
 
 .approve-button {
@@ -181,6 +185,10 @@ button:disabled {
   margin: 10px;
   margin-left: 50px;
   width: 80px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
 }
 
 /* Rest and Focus on a button */
@@ -200,7 +208,7 @@ button:disabled {
   max-width: 450px;
 }
 
-/* Material Card */
+/* Material */
 
 .mat-card {
   text-align: -webkit-center;
@@ -218,6 +226,42 @@ button:disabled {
 .full-width {
   width: 100%;
   padding-right: 20px;
+}
+
+/* Admin Page */
+
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 68px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.scrollable {
+  overflow-x: auto;
+  height: 330px;
+  overflow-y: auto;
+}
+
+.is-mobile {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+.sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.is-mobile .sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
 }
 
 /* App About, Results-List, Glossary, Submission-Status */

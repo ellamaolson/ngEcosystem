@@ -17,6 +17,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,6 +66,7 @@ import { SubmissionStatusComponent } from './submission-status/submission-status
     MatFormFieldModule,
     MatCheckboxModule,
     MatInputModule,
+    MatRadioModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: SearchBarComponent },

@@ -28,7 +28,7 @@ export class ResultsListComponent implements OnInit {
    * containing results from querying the search database
    */
   dataSource: Observable<any[]>;
-  columnsToDisplay = ['name', 'bundleSize', 'ngAdd', 'ngUpdate'];
+  columnsToDisplay = ['name', 'bundleSize'];
   expandedElement: Resource | null;
 
   constructor(private resourceService: ResourcesService, private route: ActivatedRoute) {}
@@ -37,7 +37,7 @@ export class ResultsListComponent implements OnInit {
     this.searchTerm = this.route.snapshot.paramMap.get('searchTerm');
     console.log('THE SEARCH TERM IS: ', this.searchTerm);
     if (this.searchTerm !== null) {
-      this.dataSource = this.resourceService.queryResourcesBySearchTerm(this.searchTerm);
+      this.dataSource = this.resourceService.queryApprovedResourcesBySearchTerm(this.searchTerm);
     }
   }
 }

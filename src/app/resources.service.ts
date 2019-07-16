@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, take } from 'rxjs/operators';
 
 export enum status {
   denied = 0,
@@ -11,8 +11,9 @@ export enum status {
 
 export interface Resource {
   bundleSize: number;
-  date?: number;
+  date: number;
   description: string;
+  github: string;
   id?: string;
   link: string;
   name: string;
@@ -58,29 +59,35 @@ export class ResourcesService {
   }
 
   /**
-   * Updates the terms array of the resource to contain the
-   * original search terms, the resource's name and type, and
-   * lowercase versions of all terms.
+   * Updates the resource terms array with existing terms,
+   * the name, the type, and the lower case versions of
+   * all terms. Then, saves only the unique values.
    * @param resource
    */
   updateTerms(resource: Resource): void {
-    const terms = [];
-    for (const term of resource.terms) {
-      console.log('resource terms: ', term);
-      if (!resource[term.toLowerCase()]) {
-        terms.push(term.toLowerCase());
-      }
+
+    // add name, type, and name parsed into unique strings
+    resource.terms.push(resource.name, resource.type);
+
+    for (const str of  this.parseStringToArray(resource.name)) {
+      resource.terms.push(str);
     }
-    for (const term of terms) {
+
+    // push lower case versions
+    const lowerCaseTerms = [];
+    resource.terms.push(resource.name, resource.type);
+    for (const term of resource.terms) {
+      lowerCaseTerms.push(term.toLowerCase());
+    }
+
+    for (const term of lowerCaseTerms) {
       resource.terms.push(term);
     }
 
-    resource.terms.push(resource.name, resource.name.toLowerCase(), resource.type, resource.type.toLowerCase());
-
-    for (const word of this.parseStringToArray(resource.name)) {
-      resource.terms.push(word);
-      resource.terms.push(word.toLowerCase());
-    }
+    // save only unqiue values
+    resource.terms = resource.terms.filter((elem, index, self) => {
+      return index === self.indexOf(elem);
+    });
   }
 
   /**
@@ -142,10 +149,15 @@ export class ResourcesService {
    * and orders then by name
    * @param resourceTerm is the inquiring search term
    */
-  queryResourcesBySearchTerm(resourceTerm: string): Observable<Resource[]> {
+  queryApprovedResourcesBySearchTerm(resourceTerm: string): Observable<Resource[]> {
     console.log('Resource Service: Querying for search term ', resourceTerm);
     const resourceObservable: Observable<Resource[]> = this.db
-      .collection<Resource>('resources', ref => ref.orderBy('name').where('terms', 'array-contains', resourceTerm))
+      .collection<Resource>('resources', ref =>
+        ref
+          .orderBy('name')
+          .where('terms', 'array-contains', resourceTerm)
+          .where('status', '==', status.approved)
+      )
       .valueChanges();
 
     return resourceObservable;
