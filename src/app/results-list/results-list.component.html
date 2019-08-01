@@ -24,7 +24,7 @@
               {{ element.name }}
             </a>
             <a
-              *ngIf="element.github != null"
+              *ngIf="(element.github != null) && (element.github != '')"
               class="l-flex--column resource-row-link button is-white"
               target="_blank"
               href="{{ element.github }}"
@@ -35,7 +35,7 @@
               github/{{ element.name }}
             </a>
             <a
-              *ngIf="element.npm != null"
+              *ngIf="(element.npm != null) && (element.npm != '')"
               class="l-flex--column resource-row-link button is-white"
               target="_blank"
               href="{{ element.npm }}"

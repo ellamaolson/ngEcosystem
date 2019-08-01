@@ -7,7 +7,6 @@ import { ResourcesService, Resource, status } from '../resources.service';
 @Component({
   selector: 'app-new-submission',
   templateUrl: './new-submission.component.html',
-  styleUrls: ['./new-submission.component.css'],
 })
 export class NewSubmissionComponent {
   /**
@@ -47,38 +46,42 @@ export class NewSubmissionComponent {
       return;
     }
 
-    if (!this.submissionForm.value.github.includes('https://github.com/')) {
-      const str: string = this.submissionForm.value.github;
-      this.submissionForm.value.github = 'https://github.com/' + str;
+    const formValue = this.submissionForm.value;
+
+    const sub: Resource = {
+      bundleSize: formValue.bundleSize,
+      date: Date.now(),
+      description: formValue.description,
+      github: '',
+      link: formValue.link,
+      name: formValue.name,
+      ngAdd: this.ngAddChecked,
+      ngUpdate: this.ngUpdateChecked,
+      npm: '',
+      status: status.waiting,
+      terms: this.parseStringToArray(formValue.terms),
+      type: formValue.type,
+    };
+
+    if (formValue.github.length > 0) {
+      formValue.github.includes('https://github.com/')
+        ? (sub.github = formValue.github)
+        : (sub.github = 'https://github.com/' + formValue.github);
     }
 
-    if (!this.submissionForm.value.npm.includes('https://www.npmjs.com/package/')) {
-      const str: string = this.submissionForm.value.github;
-      this.submissionForm.value.github = 'https://www.npmjs.com/package/' + str;
+    if (formValue.npm.length > 0) {
+      formValue.npm.includes('https://www.npmjs.com/package/')
+        ? (sub.npm = formValue.npm)
+        : (sub.npm = 'https://www.npmjs.com/package/' + formValue.npm);
     }
 
     if (this.ngAddChecked == null) {
-      this.ngAddChecked = false;
+      sub.ngAdd = false;
     }
 
     if (this.ngUpdateChecked == null) {
-      this.ngUpdateChecked = false;
+      sub.ngUpdate = false;
     }
-
-    const sub: Resource = {
-      bundleSize: this.submissionForm.value.bundleSize,
-      date: Date.now(),
-      description: this.submissionForm.value.description,
-      github: this.submissionForm.value.github,
-      link: this.submissionForm.value.link,
-      name: this.submissionForm.value.name,
-      ngAdd: this.ngAddChecked,
-      ngUpdate: this.ngUpdateChecked,
-      npm: this.submissionForm.value.npm,
-      status: status.waiting,
-      terms: this.parseStringToArray(this.submissionForm.value.terms),
-      type: this.submissionForm.value.type,
-    };
 
     try {
       // Add resource to database
@@ -93,6 +96,10 @@ export class NewSubmissionComponent {
       this.dialogRef = this.dialog.open(this.failurePopup, {
         width: '600px',
       });
+    }
+
+    if (this.statusUrl) {
+      this.router.navigate(['/submission-status', this.statusUrl]);
     }
   }
 

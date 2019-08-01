@@ -73,6 +73,7 @@ import { SubmissionStatusComponent } from './submission-status/submission-status
       { path: 'glossary', component: GlossaryComponent },
       { path: 'about', component: AboutComponent },
       { path: 'new-submission', component: NewSubmissionComponent },
+      { path: 'submission-status', component: SubmissionStatusComponent },
       { path: 'submission-status/:status-id', component: SubmissionStatusComponent },
       {
         path: 'admin-console',

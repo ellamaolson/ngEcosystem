@@ -9,7 +9,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 @Component({
   selector: 'app-submission',
   templateUrl: './submission.component.html',
-  styleUrls: ['./submission.component.css'],
 })
 export class SubmissionComponent {
   idObservable: Observable<string> = this.route.paramMap.pipe(map(selectId));

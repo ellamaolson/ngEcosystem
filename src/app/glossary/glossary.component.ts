@@ -5,7 +5,6 @@ import { ResourcesService } from '../resources.service';
 @Component({
   selector: 'app-glossary',
   templateUrl: './glossary.component.html',
-  styleUrls: ['./glossary.component.css']
 })
 export class GlossaryComponent {
   /**

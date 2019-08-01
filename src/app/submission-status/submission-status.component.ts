@@ -7,7 +7,6 @@ import { ResourcesService, Resource, status } from '../resources.service';
 @Component({
   selector: 'app-submission-status',
   templateUrl: './submission-status.component.html',
-  styleUrls: ['./submission-status.component.css'],
 })
 export class SubmissionStatusComponent {
   statusId: Observable<string> = this.route.paramMap.pipe(map(selectId));
