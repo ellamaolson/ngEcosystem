@@ -26,7 +26,6 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { ResultsListComponent } from './results-list/results-list.component';
 import { GlossaryComponent } from './glossary/glossary.component';
 import { AboutComponent } from './about/about.component';
-import { ResultOverlayComponent } from './result-overlay/result-overlay.component';
 import { NewSubmissionComponent } from './new-submission/new-submission.component';
 import { AdminConsoleComponent } from './admin-console/admin-console.component';
 import { SubmissionComponent } from './submission/submission.component';
@@ -41,7 +40,6 @@ import { SubmissionStatusComponent } from './submission-status/submission-status
     ResultsListComponent,
     GlossaryComponent,
     AboutComponent,
-    ResultOverlayComponent,
     NewSubmissionComponent,
     AdminConsoleComponent,
     SubmissionComponent,
@@ -74,7 +72,6 @@ import { SubmissionStatusComponent } from './submission-status/submission-status
       { path: 'results/:searchTerm', component: ResultsListComponent },
       { path: 'glossary', component: GlossaryComponent },
       { path: 'about', component: AboutComponent },
-      { path: 'result-overlay', component: ResultOverlayComponent },
       { path: 'new-submission', component: NewSubmissionComponent },
       { path: 'submission-status/:status-id', component: SubmissionStatusComponent },
       {
