@@ -1,0 +1,13 @@
+<h1>Submission Status Page</h1>
+<ng-container *ngIf="resourceObservable | async as resource" style="text-align: center;">
+  <p *ngIf="resource.status === status.waiting">
+    Your resource is being reviewed by our team members. Please check back later for further updates. Thank you very
+    much!
+  </p>
+  <p *ngIf="resource.status === status.approved">
+    Congratulations, you resource has been approved!
+  </p>
+  <p *ngIf="resource.status === status.denied">
+    Unfortunately, your resource has been denied.
+  </p>
+</ng-container>

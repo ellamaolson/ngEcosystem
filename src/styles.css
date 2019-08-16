@@ -1,1 +1,311 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Styles */
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/cdk/overlay-prebuilt.css';
+
+* {
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #616161;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+router-outlet + * {
+  padding: 0 16px;
+}
+
+#site-title {
+  font-size: 28px;
+  font-weight: lighter;
+  color: white;
+  margin: 0;
+  text-align: left;
+}
+
+/* Text */
+
+h1 {
+  font-size: 32px;
+  font-weight: lighter;
+  text-align: center;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+h3 {
+  padding-right: 10px;
+}
+
+p {
+  font-size: 14px;
+}
+
+/* Hyperlink */
+
+a {
+  cursor: pointer;
+  color: #1976d2;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Input */
+
+input {
+  font-size: 14px;
+  border-radius: 2px;
+  padding: 8px;
+  margin: 16px;
+  border: 1px solid #bdbdbd;
+}
+
+label {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* Unordered List */
+
+ul {
+  padding-inline-start: 30px;
+  padding-inline-end: 10px;
+}
+
+/* Table */
+
+table {
+  width: 100%;
+}
+
+/* Button */
+
+.button,
+button {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 2px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+}
+
+.button:hover,
+button:hover {
+  opacity: 0.8;
+  font-weight: normal;
+}
+
+.button:disabled,
+button:disabled {
+  opacity: 0.5;
+  cursor: auto;
+}
+
+/* Fancy Button */
+
+.fancy-button {
+  background-color: white;
+  color: #1976d2;
+}
+
+.fancy-button i.material-icons {
+  color: #1976d2;
+  padding-right: 4px;
+}
+
+/* Custom Classes */
+
+.search-input {
+  font-size: 18px;
+  padding: 10px;
+}
+
+.go-button {
+  font-size: 18px;
+  padding: 10px 10px;
+  margin-left: 20px;
+  border-radius: 20px;
+}
+
+/* Login Page */
+
+.login-page {
+  width: var(--content-width);
+  min-height: fit-content;
+  position: relative;
+  width: 450px;
+  margin: 5% auto 0;
+  text-align: center;
+}
+
+.loginGoogle-button {
+  width: 450px;
+  margin-top: 30px;
+  display: inline-block;
+}
+
+.logout-button {
+  display: block;
+  margin: 5% auto 0;
+  margin-top: 0px;
+}
+
+.approve-button {
+  display: inline-block;
+  background-color: #9ccc65;
+  margin: 10px;
+  margin-left: 50px;
+  width: 80px;
+}
+
+.deny-button {
+  display: inline-block;
+  background-color: #ef5350;
+  margin: 10px;
+  margin-left: 50px;
+  width: 80px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+/* Rest and Focus on a button */
+.rest{
+  border-radius: 20px;
+}
+
+.rest:focus {
+  outline: none;
+}
+
+
+/* Img */
+
+.center-page-img {
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Material */
+
+.mat-card {
+  text-align: -webkit-center;
+  margin: 20px;
+}
+
+.mat-form-field {
+  margin: 10px;
+}
+
+.mat-checkbox {
+  margin: 10px;
+}
+
+.full-width {
+  width: 100%;
+  padding-right: 20px;
+}
+
+/* Admin Page */
+
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 68px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.scrollable {
+  overflow-x: auto;
+  height: 330px;
+  overflow-y: auto;
+}
+
+.is-mobile {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+.sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.is-mobile .sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+/* App About, Results-List, Glossary, Submission-Status */
+
+app-about,
+app-results-list,
+app-glossary,
+app-submission-status {
+  width: var(--content-width);
+  min-height: fit-content;
+  position: relative;
+  max-width: 1000px;
+  margin: 5% auto 0;
+}
+
+app-admin-console {
+  margin: 5% auto 0;
+}
+
+/* App New-Submission and Search-Bar */
+
+app-new-submission,
+app-search-bar {
+  width: var(--content-width);
+  min-height: fit-content;
+  position: relative;
+  margin: 30px auto 0;
+}
+
+/* App Top Bar */
+
+app-top-bar {
+  width: 100%;
+  height: 68px;
+  background-color: #1976d2;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

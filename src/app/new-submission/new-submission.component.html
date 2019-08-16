@@ -1,0 +1,128 @@
+<mat-card>
+  <mat-card-title>
+    New Submission
+  </mat-card-title>
+
+  <mat-card-content>
+    <form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
+      <table>
+        <br />
+
+        <!-- name and type forms -->
+        <tr>
+          <td>
+            <mat-form-field class="full-width">
+              <input formControlName="name" matInput placeholder="Tool name" autocomplete="off" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="full-width">
+              <input formControlName="type" matInput placeholder="Type/Category" autocomplete="off" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+
+        <!-- description form -->
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="full-width">
+              <input formControlName="description" matInput placeholder="Description" autocomplete="off" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+
+        <!-- search terms form -->
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="full-width">
+              <input formControlName="terms" matInput placeholder="Related search terms" autocomplete="off" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+
+        <!-- website link form -->
+        <tr>
+          <td colspan="2" class="is-aligned">
+            <img src="./assets/baseline-home-24px.svg" style="max-width: 20px;" />
+            <mat-form-field style="width: 90%;">
+              <input formControlName="link" matInput placeholder="Website link" autocomplete="url" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+
+        <!-- github form -->
+        <tr>
+          <td colspan="2" class="is-aligned">
+            <img src="https://github.com/fluidicon.png" style="max-width: 20px;" />
+            <mat-form-field style="width: 90%;">
+              <input formControlName="github" matInput placeholder="Github repository" autocomplete="url" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+
+        <!-- npm form -->
+        <tr>
+          <td colspan="2" class="is-aligned">
+            <img src="https://static.npmjs.com/b0f1a8318363185cc2ea6a40ac23eeb2.png" style="max-width: 20px;" />
+            <mat-form-field style="width: 90%;">
+              <input formControlName="npm" matInput placeholder="Npm package name" autocomplete="url" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <br />
+
+        <!-- bundleSize form -->
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="full-width">
+              <input formControlName="bundleSize" matInput placeholder="Bundle Size" autocomplete="off" />
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+    <!-- ng-add and ng-update checkboxes -->
+    <table>
+      <br />
+      <tr>
+        <td style="padding-inline-start: 10px;">
+          Does it support?
+          <mat-checkbox class="full-width" [(ngModel)]="ngAddChecked">ng-add</mat-checkbox>
+        </td>
+        <td>
+          <mat-checkbox class="full-width" [(ngModel)]="ngUpdateChecked">ng-update</mat-checkbox>
+        </td>
+      </tr>
+      <br />
+      <br />
+      <tr>
+        <td colspan="2" class="full-width" style="padding-inline-start: 10px;">
+          <button type="submit" (click)="onSubmit()" style="text-align: center">Submit</button>
+        </td>
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #successPopup>
+  <h2>Your submission has been successfully submitted for review!</h2>
+  <p>We will be reviewing your submission shortly.</p>
+  <p>Thank you for your help in improving our search results and recommendations!</p>
+  <p>
+    You can see updates on the progress of your submission here: <br />
+    <b>
+      <a (click)="routeToStatusPage()" *ngIf="statusUrl">submission-status/{{ statusUrl }}</a>
+    </b>
+  </p>
+</ng-template>
+
+<ng-template #failurePopup>
+  <h2>Unfortunately, your submission cannot be submitted for review.</h2>
+  <p>Please make sure all fields are filled out.</p>
+</ng-template>

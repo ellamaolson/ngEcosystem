@@ -1,0 +1,20 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow anyone to read or create, allow only admin to update and delete
+    match /resources/{resourceId} {
+      allow read;
+      allow create;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Allow only admin to read and write admin
+    match /admin/{adminId} {
+      allow read, write: if isAdmin();
+    }
+
+    function isAdmin() {
+      return get(/databases/$(database)/documents/admin/$(request.auth.uid)).data.admin == true;
+    }
+  }
+}

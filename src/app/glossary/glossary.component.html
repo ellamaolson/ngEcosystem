@@ -1,0 +1,7 @@
+<h1>Glossary</h1>
+
+<div *ngFor="let resource of allResources | async as resources; index as i">
+  <h2 *ngIf="i == 0 || resources[i].type != resources[i-1].type"><br>{{ resource.type }}</h2>
+  <h4>{{ resource.name }}</h4>
+  <span>{{ resource.description }}</span>
+</div>

@@ -1,0 +1,113 @@
+<ng-container *ngIf="resourceObservable | async as resource">
+  <ng-container *ngIf="idObservable | async as id">
+    <mat-card [class.scrollable]="mobileQuery.matches">
+      <mat-card-title>
+        <a href="{{ resource.link }}">{{ resource.name | titlecase }}</a>
+      </mat-card-title>
+      <mat-card-subtitle> ID #{{ id }} </mat-card-subtitle>
+
+      <mat-card-content>
+
+        <!-- Mobile View -->
+        <div *ngIf="mobileQuery.matches; else isDesktop">
+          <form [formGroup]="submissionEditsForm" (ngSubmit)="approve(resource, id)">
+            <table>
+
+              <!-- Iterate through the different fields of resource -->
+              <div *ngFor="let row of fields">
+                <tr>
+                  <td>
+                    <b>{{ row }}</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td *ngIf="row == 'terms'; else otherFields">{{ resource[row] | json }}</td>
+                  <ng-template #otherFields>
+                    <td>{{ resource[row] }}</td>
+                  </ng-template>
+                </tr>
+                <tr>
+                  <td *ngIf="row == 'ngAdd' || row == 'ngUpdate'; else formFields">
+                    <mat-radio-group *ngIf="row == 'ngAdd'; else ngUpdate" formControlName="ngAddChecked">
+                      <label>Does it support ng add?</label>
+                      <mat-radio-button [value]="true">Yes</mat-radio-button>
+                      <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                    <ng-template #ngUpdate>
+                      <mat-radio-group formControlName="ngUpdateChecked">
+                        <label>Does it support ng update?</label>
+                        <mat-radio-button [value]="true">Yes</mat-radio-button>
+                        <mat-radio-button [value]="false">No</mat-radio-button>
+                      </mat-radio-group>
+                    </ng-template>
+                  </td>
+
+                  <ng-template #formFields>
+                    <td>
+                      <mat-form-field>
+                        <input [formControlName]="row" matInput [placeholder]="row" autocomplete="off" />
+                      </mat-form-field>
+                    </td>
+                  </ng-template>
+                </tr>
+              </div>
+            </table>
+          </form>
+        </div>
+
+        <!-- Desktop View -->
+        <ng-template #isDesktop>
+          <form [formGroup]="submissionEditsForm" (ngSubmit)="approve(resource, id)">
+            <table>
+              <!-- Layout -->
+              <tr>
+                <td><b>Category</b></td>
+                <td><b>Submission Details</b></td>
+                <td><b>Edits</b></td>
+              </tr>
+
+              <!-- Iterate through the different fields of resource -->
+              <tr *ngFor="let row of fields">
+                <td>
+                  <b>{{ row }}</b>
+                </td>
+
+                <td *ngIf="row == 'terms'; else otherFields">{{ resource[row] | json }}</td>
+                <ng-template #otherFields>
+                  <td>{{ resource[row] }}</td>
+                </ng-template>
+
+                <td *ngIf="row == 'ngAdd' || row == 'ngUpdate'; else formFields">
+                  <mat-radio-group *ngIf="row == 'ngAdd'; else ngUpdate" formControlName="ngAddChecked">
+                    <label>Does it support ng add?</label>
+                    <mat-radio-button [value]="true">Yes</mat-radio-button>
+                    <mat-radio-button [value]="false">No</mat-radio-button>
+                  </mat-radio-group>
+                  <ng-template #ngUpdate>
+                    <mat-radio-group formControlName="ngUpdateChecked">
+                      <label>Does it support ng update?</label>
+                      <mat-radio-button [value]="true">Yes</mat-radio-button>
+                      <mat-radio-button [value]="false">No</mat-radio-button>
+                    </mat-radio-group>
+                  </ng-template>
+                </td>
+
+                <ng-template #formFields>
+                  <td>
+                    <mat-form-field>
+                      <input [formControlName]="row" matInput [placeholder]="row" autocomplete="off" />
+                    </mat-form-field>
+                  </td>
+                </ng-template>
+              </tr>
+            </table>
+          </form>
+        </ng-template>
+      </mat-card-content>
+      <mat-card-footer>
+        <button (click)="approve(resource, id)" class="approve-button">Approve</button>
+        <button (click)="deny(resource, id)" class="deny-button">Deny</button>
+      </mat-card-footer>
+    </mat-card>
+  </ng-container>
+</ng-container>

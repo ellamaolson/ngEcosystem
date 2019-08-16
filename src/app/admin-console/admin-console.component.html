@@ -1,0 +1,37 @@
+<div *ngIf="user | async as user; else showLogin" class="admin-container" [class.is-mobile]="mobileQuery.matches">
+  <mat-sidenav-container autosize class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav
+      #snav
+      style="max-width: 80%;"
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+    >
+      <ul *ngFor="let item of resources | async">
+        <h3>
+          <a [routerLink]="[item.id]" [title]="item.name + ' details'">{{ item.name | titlecase }}</a>
+        </h3>
+        <p style="margin-right: 10px;">
+          ID: {{ item.id }}<br />
+          Date: {{ item.date | date: 'medium' }}<br />
+        </p>
+      </ul>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <h1 style="margin-bottom: 0px;">Admin Console</h1>
+      <button style="margin: 5% auto 0; margin-top: 10px; display: flex;" (click)="snav.toggle()">Resources</button>
+      <router-outlet></router-outlet>
+      <button (click)="logout()" class="logout-button">Logout</button>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+<ng-template #showLogin>
+  <div class="login-page">
+    <h1>Login</h1>
+    <img src="./assets/wildflowers.jpg" class="center-page-img" />
+    <p>Welcome back to Angular Ecosystem! Login to access the Admin Console.</p>
+    <div><button (click)="loginGoogle()" class="loginGoogle-button">Login with Google</button></div>
+  </div>
+</ng-template>

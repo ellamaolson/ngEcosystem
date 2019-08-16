@@ -1,0 +1,20 @@
+<a [routerLink]="['/']">
+  <h1 id="site-title">Angular Ecosystem</h1>
+</a>
+
+<mat-menu #appMenu="matMenu">
+    <a [routerLink]="['/']">
+      <button mat-menu-item>Home</button>
+    </a>
+    <a [routerLink]="['about']">
+        <button mat-menu-item>About</button>
+      </a>
+    <a [routerLink]="['glossary']">
+      <button mat-menu-item>Glossary</button>
+    </a>
+    <a [routerLink]="['admin-console', '']">
+        <button mat-menu-item>Admin Console</button>
+      </a>
+</mat-menu>
+
+<button mat-icon-button [matMenuTriggerFor]="appMenu">Menu</button>
